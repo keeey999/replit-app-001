@@ -1,10 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { EmployeeProfileForm } from "@shared/schema";
 import { formatDate, getEmptyProfileValue } from "@/lib/utils";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ProfilePreviewProps {
   data: EmployeeProfileForm;
@@ -13,8 +12,22 @@ interface ProfilePreviewProps {
 }
 
 export default function ProfilePreview({ data, isDownloading, onDownload }: ProfilePreviewProps) {
-  // isMobileフックを使用
-  const isMobile = useIsMobile();
+  // モバイル判定
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // 画面サイズの変更を検知
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    // 初期チェック
+    checkMobile();
+    
+    // リサイズイベントの監視
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   const {
     name,
     birthdate,

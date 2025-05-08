@@ -3,7 +3,6 @@ import { EmployeeProfileForm } from "@shared/schema";
 import EmployeeForm from "@/components/employee-form";
 import ProfilePreview from "@/components/profile-preview";
 import { downloadAsImage } from "@/lib/downloadAsImage";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Home() {
   const [profileData, setProfileData] = useState<EmployeeProfileForm>({
@@ -25,8 +24,22 @@ export default function Home() {
   // モバイル用のタブ切り替え（'form'か'preview'）
   const [activeTab, setActiveTab] = useState<'form' | 'preview'>('form');
   
-  // isMobileフックを使用（レスポンシブな操作性の向上）
-  const isMobile = useIsMobile();
+  // レスポンシブの判定（1024px未満をモバイルとみなす）
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // 画面サイズの変更を検知
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    // 初期チェック
+    checkMobile();
+    
+    // リサイズイベントの監視
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // ダウンロード成功時にプレビュータブに自動切り替え（モバイルの場合）
   useEffect(() => {

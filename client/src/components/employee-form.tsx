@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { z } from "zod";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,7 +9,6 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RotateCcw, EyeIcon } from "lucide-react";
 import PhotoUpload from "@/components/photo-upload";
-import { useIsMobile } from "@/hooks/use-mobile";
 
 interface EmployeeFormProps {
   defaultValues?: Partial<EmployeeProfileForm>;
@@ -79,8 +78,22 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
     },
   });
 
-  // useIsMobileフックを使用
-  const isMobile = useIsMobile();
+  // モバイル判定
+  const [isMobile, setIsMobile] = useState(false);
+  
+  // 画面サイズの変更を検知
+  useEffect(() => {
+    const checkMobile = () => {
+      setIsMobile(window.innerWidth < 1024);
+    };
+    
+    // 初期チェック
+    checkMobile();
+    
+    // リサイズイベントの監視
+    window.addEventListener('resize', checkMobile);
+    return () => window.removeEventListener('resize', checkMobile);
+  }, []);
   
   // フォームの変更をリアルタイムでプレビューに反映
   React.useEffect(() => {
