@@ -849,10 +849,10 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                     cardStyle === style.id
                       ? "border-primary"
                       : "border-transparent"
-                  } hover:border-primary rounded-lg p-2 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
+                  } hover:border-primary rounded-lg p-2 sm:p-3 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
                 >
-                  <div className={`h-10 sm:h-12 ${style.color} rounded-md mb-2`}></div>
-                  <div className="text-xs text-center text-muted-foreground font-medium">
+                  <div className={`h-12 sm:h-14 ${style.color} rounded-md mb-2`}></div>
+                  <div className="text-xs sm:text-sm text-center text-muted-foreground font-medium">
                     {style.name}
                   </div>
                 </div>
@@ -871,14 +871,14 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                     layoutStyle === style.id
                       ? "border-primary"
                       : "border-transparent"
-                  } hover:border-primary rounded-lg p-2 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
+                  } hover:border-primary rounded-lg p-2 sm:p-3 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
                 >
-                  <div className="h-10 sm:h-14 bg-accent rounded-md mb-2 flex items-center justify-center">
+                  <div className="h-12 sm:h-14 bg-accent rounded-md mb-2 flex items-center justify-center">
                     <div className="text-base sm:text-lg font-bold text-primary">
                       {style.icon}
                     </div>
                   </div>
-                  <div className="text-xs text-center text-muted-foreground font-medium">
+                  <div className="text-xs sm:text-sm text-center text-muted-foreground font-medium">
                     {style.name}
                   </div>
                 </div>
@@ -891,11 +891,11 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
           {renderContent()}
         </div>
         
-        <div className="mt-8 text-center">
+        <div className="mt-6 sm:mt-8 text-center">
           <Button 
             onClick={onDownload}
             disabled={!name || isDownloading}
-            className="px-6 py-2.5 h-auto text-base bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
+            className="w-full sm:w-auto px-6 py-3 sm:py-2.5 h-auto text-base bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
           >
             {isDownloading ? (
               <>
