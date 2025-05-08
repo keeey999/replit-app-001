@@ -28,6 +28,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
     window.addEventListener('resize', checkMobile);
     return () => window.removeEventListener('resize', checkMobile);
   }, []);
+
   const {
     name,
     birthdate,
