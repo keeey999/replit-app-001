@@ -297,21 +297,20 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
               <Button
                 type="button"
                 onClick={onSwitchToPreview}
-                className="block sm:hidden w-full bg-primary text-white hover:bg-primary/90 active:bg-primary/80 transition-colors py-3"
+                variant="default"
+                className="block sm:hidden w-full h-auto py-3"
               >
                 <EyeIcon className="mr-2 h-4 w-4" />
                 プレビューを確認
               </Button>
             )}
             
-            {/* 更新ボタンは不要なので削除 */}
-            
-            {/* リセットボタン - モバイルではさらに下部に配置 */}
+            {/* リセットボタン */}
             <Button
               type="button"
               variant="destructive"
               onClick={handleReset}
-              className="px-4 py-3 w-full hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
+              className="px-4 py-3 w-full h-auto hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               すべてリセット
