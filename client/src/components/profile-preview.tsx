@@ -25,31 +25,31 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
     cardStyle,
   } = data;
 
-  // Map of style names to Tailwind classes
+  // Map of style names to gradient classes
   const styleMap = {
-    blue: "bg-blue-500",
-    green: "bg-green-500",
-    amber: "bg-amber-500",
+    blue: "from-blue-600 to-blue-400",
+    green: "from-green-600 to-green-400",
+    amber: "from-amber-600 to-amber-400",
   };
 
-  const headerStyle = styleMap[cardStyle as keyof typeof styleMap] || "bg-blue-500";
+  const gradientStyle = styleMap[cardStyle as keyof typeof styleMap] || "from-blue-600 to-blue-400";
 
   return (
     <div className="w-full">
       <div className="sticky top-8">
-        <Card className="bg-white p-6 mb-6">
-          <h2 className="text-xl font-semibold text-neutral-800 mb-6 flex items-center">
+        <Card className="bg-white p-8 mb-6 card-shadow rounded-xl">
+          <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
             <svg 
               xmlns="http://www.w3.org/2000/svg" 
-              width="20" 
-              height="20" 
+              width="22" 
+              height="22" 
               viewBox="0 0 24 24" 
               fill="none" 
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="mr-2 text-primary"
+              className="mr-3 text-primary"
             >
               <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
               <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
@@ -60,11 +60,16 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
           </h2>
           
           <div className="preview-container relative rounded-xl overflow-hidden bg-white">
-            <div id="profileCard" className="border border-neutral-200 rounded-xl overflow-hidden" style={{ minHeight: "540px" }}>
-              <div className={`h-24 ${headerStyle}`}></div>
-              <div className="px-6 pt-0 pb-6">
-                <div className="flex flex-col items-center -mt-12 mb-4">
-                  <div className="w-24 h-24 bg-white rounded-full p-1 shadow-lg overflow-hidden">
+            <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
+              <div className={`bg-gradient-to-br ${gradientStyle} p-8 pb-20 relative`}>
+                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+                <div className="relative">
+                  <h3 className="text-xl font-bold text-white">新入社員紹介</h3>
+                </div>
+              </div>
+              <div className="px-8 pt-0 pb-8">
+                <div className="flex flex-col items-center -mt-16 mb-6">
+                  <div className="w-28 h-28 bg-white rounded-full p-1 shadow-xl overflow-hidden">
                     <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
                       {photoUrl ? (
                         <img 
@@ -75,12 +80,12 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
                       ) : (
                         <svg 
                           xmlns="http://www.w3.org/2000/svg" 
-                          width="40" 
-                          height="40" 
+                          width="48" 
+                          height="48" 
                           viewBox="0 0 24 24" 
                           fill="none" 
                           stroke="currentColor"
-                          strokeWidth="2"
+                          strokeWidth="1.5"
                           strokeLinecap="round"
                           strokeLinejoin="round"
                           className="text-neutral-300"
@@ -91,54 +96,53 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
                       )}
                     </div>
                   </div>
-                  <h3 className="text-xl font-bold mt-4 text-neutral-800">
+                  <h3 className="text-2xl font-bold mt-4 text-foreground">
                     {name || "お名前"}
                   </h3>
-                  <p className="text-neutral-500 text-sm">
+                  <p className="text-muted-foreground">
                     {birthdate ? formatDate(birthdate) : "生年月日"}
                   </p>
                 </div>
                 
-                <div className="grid grid-cols-1 gap-4 mt-6">
-                  <div className="border-b border-neutral-100 pb-3">
-                    <h4 className="text-sm font-medium text-neutral-500 mb-1">前職の紹介</h4>
-                    <p className="text-neutral-800">{getEmptyProfileValue(previousJob)}</p>
+                <div className="grid grid-cols-1 gap-5 mt-6">
+                  <div className="border-b border-border pb-4">
+                    <h4 className="text-sm font-medium text-primary mb-2">前職の紹介</h4>
+                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(previousJob)}</p>
                   </div>
                   
-                  <div className="border-b border-neutral-100 pb-3">
-                    <h4 className="text-sm font-medium text-neutral-500 mb-1">趣味</h4>
-                    <p className="text-neutral-800">{getEmptyProfileValue(hobby)}</p>
+                  <div className="border-b border-border pb-4">
+                    <h4 className="text-sm font-medium text-primary mb-2">趣味</h4>
+                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(hobby)}</p>
                   </div>
                   
-                  <div className="border-b border-neutral-100 pb-3">
-                    <h4 className="text-sm font-medium text-neutral-500 mb-1">特技</h4>
-                    <p className="text-neutral-800">{getEmptyProfileValue(skill)}</p>
+                  <div className="border-b border-border pb-4">
+                    <h4 className="text-sm font-medium text-primary mb-2">特技</h4>
+                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(skill)}</p>
                   </div>
                   
-                  <div className="border-b border-neutral-100 pb-3">
-                    <h4 className="text-sm font-medium text-neutral-500 mb-1">性格</h4>
-                    <p className="text-neutral-800">{getEmptyProfileValue(personality)}</p>
+                  <div className="border-b border-border pb-4">
+                    <h4 className="text-sm font-medium text-primary mb-2">性格</h4>
+                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(personality)}</p>
                   </div>
                   
-                  <div className="border-b border-neutral-100 pb-3">
-                    <h4 className="text-sm font-medium text-neutral-500 mb-1">座右の銘</h4>
-                    <p className="text-neutral-800">{getEmptyProfileValue(motto)}</p>
+                  <div className="border-b border-border pb-4">
+                    <h4 className="text-sm font-medium text-primary mb-2">座右の銘</h4>
+                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(motto)}</p>
                   </div>
                   
                   <div>
-                    <h4 className="text-sm font-medium text-neutral-500 mb-1">コメント</h4>
-                    <p className="text-neutral-800">{getEmptyProfileValue(comment)}</p>
+                    <h4 className="text-sm font-medium text-primary mb-2">コメント</h4>
+                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(comment)}</p>
                   </div>
                 </div>
               </div>
             </div>
 
-            <div className="mt-6 text-center">
+            <div className="mt-8 text-center">
               <Button 
                 onClick={onDownload}
                 disabled={!name || isDownloading}
-                variant="secondary"
-                className="px-6 py-6 h-auto text-base"
+                className="px-6 py-2.5 h-auto text-base bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
               >
                 {isDownloading ? (
                   <>

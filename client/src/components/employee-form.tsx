@@ -17,9 +17,9 @@ interface EmployeeFormProps {
 }
 
 const cardStyles = [
-  { id: "blue", name: "ブルー", color: "bg-blue-500" },
-  { id: "green", name: "グリーン", color: "bg-green-500" },
-  { id: "amber", name: "アンバー", color: "bg-amber-500" },
+  { id: "blue", name: "ブルー", color: "bg-gradient-to-r from-blue-600 to-blue-400" },
+  { id: "green", name: "グリーン", color: "bg-gradient-to-r from-green-600 to-green-400" },
+  { id: "amber", name: "アンバー", color: "bg-gradient-to-r from-amber-600 to-amber-400" },
 ];
 
 export default function EmployeeForm({ defaultValues, onSubmit, onReset }: EmployeeFormProps) {
@@ -240,10 +240,10 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
                         field.value === style.id
                           ? "border-primary"
                           : "border-transparent"
-                      } hover:border-primary rounded-lg p-2 bg-${style.id}-50`}
+                      } hover:border-primary rounded-lg p-2 shadow-sm`}
                     >
                       <div className={`h-12 ${style.color} rounded-md mb-2`}></div>
-                      <div className="text-xs text-center text-neutral-600">
+                      <div className="text-xs text-center text-muted-foreground font-medium">
                         {style.name}
                       </div>
                     </div>

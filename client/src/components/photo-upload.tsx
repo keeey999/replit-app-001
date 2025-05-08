@@ -71,11 +71,11 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
   });
 
   return (
-    <div className="space-y-2">
+    <div className="space-y-3">
       <Label className="font-medium">写真</Label>
-      <div className="flex items-start gap-4">
-        <div className="relative w-24 h-24 flex-shrink-0">
-          <div className="w-24 h-24 border-2 border-neutral-200 rounded-lg flex items-center justify-center overflow-hidden bg-neutral-50">
+      <div className="flex items-start gap-5">
+        <div className="relative w-28 h-28 flex-shrink-0">
+          <div className="w-28 h-28 border-2 border-border rounded-lg flex items-center justify-center overflow-hidden bg-accent shadow-sm">
             {value ? (
               <img
                 src={value}
@@ -83,15 +83,15 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
                 className="w-full h-full object-cover"
               />
             ) : (
-              <div className="flex items-center justify-center text-neutral-300 text-4xl">
+              <div className="flex items-center justify-center text-muted-foreground">
                 <svg 
                   xmlns="http://www.w3.org/2000/svg" 
-                  width="40" 
-                  height="40" 
+                  width="44" 
+                  height="44" 
                   viewBox="0 0 24 24" 
                   fill="none" 
                   stroke="currentColor"
-                  strokeWidth="2"
+                  strokeWidth="1.5"
                   strokeLinecap="round"
                   strokeLinejoin="round"
                 >
@@ -106,15 +106,15 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
           <div
             {...getRootProps()}
             className={cn(
-              "flex flex-col items-center justify-center w-full h-12 px-4 transition bg-white border-2 border-neutral-200 border-dashed rounded-md appearance-none cursor-pointer hover:border-primary focus:outline-none",
+              "flex flex-col items-center justify-center w-full h-16 px-4 transition bg-white border-2 border-border border-dashed rounded-lg appearance-none cursor-pointer hover:border-primary focus:outline-none",
               isDragActive && "border-primary bg-primary/5",
               isUploading && "opacity-50 cursor-not-allowed"
             )}
           >
             <input {...getInputProps()} disabled={isUploading} />
             <div className="flex items-center gap-2">
-              <Upload className="w-4 h-4 text-primary" />
-              <span className="font-medium text-neutral-600">
+              <Upload className="w-5 h-5 text-primary" />
+              <span className="font-medium text-foreground">
                 {isUploading
                   ? "アップロード中..."
                   : isDragActive
@@ -123,7 +123,7 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
               </span>
             </div>
           </div>
-          <p className="mt-2 text-xs text-neutral-500">
+          <p className="mt-2 text-xs text-muted-foreground">
             JPG, PNG, GIF (最大 2MB)
           </p>
         </div>
