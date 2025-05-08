@@ -854,26 +854,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
   return (
     <div className="w-full">
       <div className="sticky top-8">
-        <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6 flex items-center">
-          <svg 
-            xmlns="http://www.w3.org/2000/svg" 
-            width="22" 
-            height="22" 
-            viewBox="0 0 24 24" 
-            fill="none" 
-            stroke="currentColor"
-            strokeWidth="2"
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            className="mr-2 sm:mr-3 text-primary"
-          >
-            <path d="M15 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7Z"></path>
-            <path d="M14 2v4a2 2 0 0 0 2 2h4"></path>
-            <circle cx="10" cy="13" r="2"></circle>
-            <path d="m20 17-1.09-1.09a2 2 0 0 0-2.82 0L10 22"></path>
-          </svg>
-          プレビュー
-        </h2>
+        {/* プレビューの見出しは不要なので削除 */}
         
         {/* デザイン設定部分 */}
         <div className="space-y-4 sm:space-y-6 border border-border p-3 sm:p-5 rounded-lg bg-white mb-6 shadow-sm">
