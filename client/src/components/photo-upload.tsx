@@ -218,25 +218,37 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
           <div
             {...getRootProps()}
             className={cn(
-              "flex flex-col items-center justify-center w-full h-16 px-4 transition bg-white border-2 border-border border-dashed rounded-lg appearance-none cursor-pointer hover:border-primary focus:outline-none",
+              "flex flex-col items-center justify-center w-full h-20 sm:h-16 px-4 transition bg-white border-2 border-border border-dashed rounded-lg appearance-none cursor-pointer hover:border-primary focus:outline-none",
               isDragActive && "border-primary bg-primary/5",
               isUploading && "opacity-50 cursor-not-allowed"
             )}
           >
-            <input {...getInputProps()} disabled={isUploading} multiple={false} accept="image/*" />
+            <input 
+              {...getInputProps()} 
+              disabled={isUploading} 
+              multiple={false} 
+              accept="image/*" 
+              capture="environment" 
+            />
             <div className="flex items-center gap-2">
               <Upload className="w-5 h-5 text-primary" />
               <span className="font-medium text-foreground">
                 {isUploading
                   ? "アップロード中..."
                   : isDragActive
-                  ? "ドロップしてアップロード"
-                  : "写真をアップロード"}
+                  ? "ドロップ"
+                  : (
+                    <>
+                      <span className="hidden sm:inline">ドラッグ&ドロップまたはクリック</span>
+                      <span className="inline sm:hidden">タップして写真を選択</span>
+                    </>
+                  )}
               </span>
             </div>
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
             JPG, PNG, GIF のみ・1ファイル・最大 10MB まで
+            <span className="hidden sm:inline"> • スマホの方はカメラで撮影も可能</span>
           </p>
         </div>
       </div>
