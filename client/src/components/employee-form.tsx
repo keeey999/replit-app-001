@@ -298,7 +298,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
                 type="button"
                 onClick={onSwitchToPreview}
                 variant="default"
-                className="block sm:hidden w-full h-auto py-3"
+                className="block sm:hidden w-full h-12 py-0"
               >
                 <EyeIcon className="mr-2 h-4 w-4" />
                 プレビューを確認
@@ -310,7 +310,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
               type="button"
               variant="destructive"
               onClick={handleReset}
-              className="px-4 py-3 w-full h-auto hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
+              className="w-full h-12 py-0 hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               すべてリセット
