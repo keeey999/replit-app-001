@@ -307,9 +307,9 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         return (
           <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
             {/* サイドカラム付きレイアウト */}
-            <div className="grid grid-cols-12">
+            <div className="grid grid-cols-12 h-full">
               {/* サイドバー部分 */}
-              <div className={`col-span-4 bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative`}>
+              <div className={`col-span-4 bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative h-full`}>
                 {/* 背景装飾 */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
                 
@@ -575,7 +575,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
             </div>
             
             <div className="px-8 pt-0 pb-8 bg-white">
-              <div className="flex flex-col items-center -mt-24 mb-6">
+              <div className="flex flex-col items-center -mt-16 mb-6">
                 <div className="w-32 h-32 bg-white rounded-full p-1.5 shadow-xl overflow-hidden">
                   <div className="w-full h-full rounded-full bg-neutral-100 overflow-hidden flex items-center justify-center group">
                     {photoUrl ? (
