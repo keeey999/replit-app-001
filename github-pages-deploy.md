@@ -27,19 +27,60 @@ git remote add origin https://github.com/あなたのユーザー名/リポジ�
 git push -u origin main
 ```
 
-## 3. GitHubリポジトリにプッシュする
+## 3. GitHub Actionsのワークフローファイルを作成する
 
-すでにこのプロジェクトでは、GitHub Pagesデプロイに必要なファイルが含まれています：
+リポジトリのルートに `.github/workflows` ディレクトリを作成し、その中に `deploy.yml` ファイルを作成します：
 
-- `.github/workflows/deploy.yml` - GitHubアクションのワークフロー設定
-- `client/public/.nojekyll` - Jekyll処理を無効化するためのファイル
-- `client/public/404.html` - 404エラーを処理するためのリダイレクトページ
+```yaml
+name: Deploy to GitHub Pages
 
-必要なファイルはすべて設定済みですので、GitHubリポジトリにプッシュするだけでGitHub Actionsが自動的にデプロイを行います。
+on:
+  push:
+    branches: [ main ]
+  workflow_dispatch:
 
-## 4. GitHub Pagesの設定
+jobs:
+  build:
+    runs-on: ubuntu-latest
 
-GitHubリポジトリにコードをプッシュした後：
+    steps:
+      - uses: actions/checkout@v3
+      
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+          
+      - name: Install dependencies
+        run: npm ci
+        
+      - name: Build client
+        run: |
+          npm run build
+          touch dist/public/.nojekyll
+          
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist/public
+          branch: gh-pages
+```
+
+## 4. package.jsonの更新
+
+パッケージのビルドコマンドを確認します：
+
+```json
+{
+  "scripts": {
+    "build": "vite build"
+  }
+}
+```
+
+が存在していることを確認します。
+
+## 5. GitHub Pagesの設定
 
 1. GitHubリポジトリの「Settings」タブを開く
 2. 左側メニューから「Pages」を選択
@@ -47,39 +88,12 @@ GitHubリポジトリにコードをプッシュした後：
 4. ブランチを「gh-pages」、フォルダを「/ (root)」に設定
 5. 「Save」ボタンをクリック
 
-GitHub Actionsのワークフローは自動的に以下を行います：
-- Nodeモジュールのインストール
-- アプリケーションのビルド 
-- 静的アセットのパス修正スクリプト追加
-- 404エラーを処理するためのリダイレクト設定
-- ビルド結果の`gh-pages`ブランチへのプッシュ
-
-アセットパス修正スクリプトは、GitHub Pagesで発生することがある相対パスの問題を自動的に解決します：
-- JSファイルやCSSファイルの相対パスを修正
-- ハッシュベースのルーティングを処理
-- 404エラーページから自動的にホームページへリダイレクト
-
-## 5. デプロイの確認
+## 6. デプロイの確認
 
 GitHub Actionsのワークフローが実行完了したら、`https://あなたのユーザー名.github.io/リポジトリ名/` にアクセスしてアプリケーションが正常にデプロイされたことを確認します。
-
-ウェブサイトにアクセスする際のURL形式：
-```
-https://<GitHubユーザー名>.github.io/<リポジトリ名>/
-```
-
-## アプリケーション機能について
-
-GitHub Pagesにデプロイされたバージョンでは以下の機能が利用可能です：
-
-- プロフィール情報の入力と編集
-- 写真のアップロードとプレビュー
-- レイアウトとカラーテーマの選択
-- プロフィールカードの画像としてのダウンロード
 
 ## 注意点
 
 - GitHub Pagesはサーバーサイドのコードを実行できないため、このアプリはクライアントサイドの機能のみが利用可能です。
-- 画像のアップロードはブラウザのメモリに一時的に保存され、サーバーには保存されません。
+- 画像のアップロードはローカルのファイルとして機能し、サーバーに保存されることはありません。
 - アプリの状態はブラウザのセッション内でのみ保持されます。
-- 入力データは自動的に保存されないため、作業が完了したら必ず画像としてダウンロードすることをお勧めします。

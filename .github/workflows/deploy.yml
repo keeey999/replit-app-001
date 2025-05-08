@@ -16,86 +16,17 @@ jobs:
         uses: actions/setup-node@v3
         with:
           node-version: '20'
-          cache: 'npm'
           
       - name: Install dependencies
         run: npm ci
         
       - name: Build client
         run: |
-          # 環境変数とファイルの準備
-          cp client/.env.production .
-          cp -f client/index-production.html client/index.html
-          cp -f 404.html client/public/
-          
-          # vite.config.tsに base: "./" を追加
-          sed -i 's/export default defineConfig({/export default defineConfig({\n  base: ".\/",/g' vite.config.ts
-          
-          # 変更後のvite.config.tsを表示（デバッグ用）
-          echo "Modified vite.config.ts:"
-          cat vite.config.ts
-          
-          # ビルドの実行
           npm run build
-          
-          # GitHub Pages用のファイル準備
           touch dist/public/.nojekyll
-          cp -f 404.html dist/public/
-          cp -f client/public/path-fix.js dist/public/
-
-          # indexページのHTMLファイルのパス修正（sedを使用）
-          sed -i 's|"/assets|"./assets|g' dist/public/index.html
-          
-          # パス修正スクリプトを<head>内に追加
-          sed -i 's|</head>|<script src="./path-fix.js"></script></head>|g' dist/public/index.html
-          
-          # アセットパスの修正スクリプト追加（HTMLファイルにインラインで）
-          cat >> dist/public/index.html << 'EOL'
-          <script>
-            // GitHub Pagesでのアセットパス問題を解決するスクリプト
-            (function() {
-              function fixAssetPaths() {
-                // スクリプトタグのパス修正
-                document.querySelectorAll('script[src]').forEach(el => {
-                  if (el.src.match(/\/assets\//)) {
-                    el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
-                    console.log('Fixed script path:', el.src);
-                  }
-                });
-                
-                // スタイルシートのパス修正
-                document.querySelectorAll('link[rel="stylesheet"]').forEach(el => {
-                  if (el.href.match(/\/assets\//)) {
-                    el.href = el.href.replace(/^(.*?)\/assets\//, './assets/');
-                    console.log('Fixed style path:', el.href);
-                  }
-                });
-                
-                // イメージタグのパス修正（必要に応じて）
-                document.querySelectorAll('img[src]').forEach(el => {
-                  if (el.src.match(/\/assets\//)) {
-                    el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
-                  }
-                });
-              }
-              
-              // 即時実行と遅延実行の両方を設定
-              fixAssetPaths();
-              
-              // DOMContentLoadedイベントで実行
-              if (document.readyState === 'loading') {
-                document.addEventListener('DOMContentLoaded', fixAssetPaths);
-              }
-              
-              // ロード完了時にも実行
-              window.addEventListener('load', fixAssetPaths);
-            })();
-          </script>
-          EOL
           
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4
         with:
           folder: dist/public
           branch: gh-pages
-          clean: true

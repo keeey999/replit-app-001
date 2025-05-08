@@ -3,39 +3,10 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>First Impression - 新入社員紹介ページ作成ツール</title>
-    <meta name="description" content="会社の新入社員向けの魅力的な紹介ページを簡単に作成。プロフィール情報の入力とデザインカスタマイズで、印象的な自己紹介ページを作成できます。" />
-    <meta name="keywords" content="新入社員紹介, プロフィール作成, 自己紹介ページ, 社内紹介" />
-    <meta property="og:title" content="First Impression - 新入社員紹介ページ作成ツール" />
-    <meta property="og:description" content="会社の新入社員向けの魅力的な紹介ページを簡単に作成。プロフィール情報の入力とデザインカスタマイズで、印象的な自己紹介ページを作成できます。" />
-    <meta property="og:type" content="website" />
-    <!-- ベースパスの設定 - GitHub Pagesのサブディレクトリにデプロイする場合に必要 -->
-    <base href="./">
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
-    <!-- 以下はローカル開発時のみ使用されるスクリプト -->
-    <script>
-      // GitHub Pagesでのアセットパス解決のための処理
-      // 404エラーが発生した場合にベースURLからの相対パスで再読み込みを試みる
-      window.addEventListener('error', function(e) {
-        const target = e.target;
-        if (target.tagName === 'LINK' || target.tagName === 'SCRIPT') {
-          const src = target.href || target.src;
-          if (src && src.includes('/assets/')) {
-            const newSrc = src.replace(/\/assets\//, './assets/');
-            if (target.tagName === 'LINK') {
-              target.href = newSrc;
-            } else {
-              target.src = newSrc;
-            }
-            console.log('Asset path corrected:', newSrc);
-            return false;
-          }
-        }
-      }, true);
-    </script>
+    <script type="module" src="/src/main.tsx"></script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
   </body>
