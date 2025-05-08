@@ -294,7 +294,10 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
                     {cardStyles.map((style) => (
                       <div
                         key={style.id}
-                        onClick={() => field.onChange(style.id)}
+                        onClick={() => {
+                          field.onChange(style.id);
+                          form.handleSubmit(onSubmit)();
+                        }}
                         className={`cursor-pointer border-2 ${
                           field.value === style.id
                             ? "border-primary"
@@ -323,7 +326,10 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
                     {layoutStyles.map((style) => (
                       <div
                         key={style.id}
-                        onClick={() => field.onChange(style.id)}
+                        onClick={() => {
+                          field.onChange(style.id);
+                          form.handleSubmit(onSubmit)();
+                        }}
                         className={`cursor-pointer border-2 ${
                           field.value === style.id
                             ? "border-primary"

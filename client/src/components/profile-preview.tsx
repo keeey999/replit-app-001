@@ -48,7 +48,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
               </div>
               <div className="absolute inset-0 flex items-center justify-center">
                 <div className="w-36 h-36 bg-white rounded-full p-1 shadow-xl overflow-hidden">
-                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center overflow-hidden">
                     {photoUrl ? (
                       <img 
                         src={photoUrl} 
@@ -126,7 +126,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
           <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
             <div className={`bg-gradient-to-r ${gradientStyle} p-6 flex items-center gap-6`}>
               <div className="w-20 h-20 bg-white rounded-full p-1 shadow-lg overflow-hidden flex-shrink-0">
-                <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
+                <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center overflow-hidden">
                   {photoUrl ? (
                     <img 
                       src={photoUrl} 
@@ -212,7 +212,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
             <div className="px-8 pt-0 pb-8">
               <div className="flex flex-col items-center -mt-20 mb-6">
                 <div className="w-28 h-28 bg-white rounded-full p-1 shadow-xl overflow-hidden">
-                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
+                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center overflow-hidden">
                     {photoUrl ? (
                       <img 
                         src={photoUrl} 
