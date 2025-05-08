@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -9,14 +9,35 @@
     <meta property="og:title" content="First Impression - 新入社員紹介ページ作成ツール" />
     <meta property="og:description" content="会社の新入社員向けの魅力的な紹介ページを簡単に作成。プロフィール情報の入力とデザインカスタマイズで、印象的な自己紹介ページを作成できます。" />
     <meta property="og:type" content="website" />
-    <!-- ベースパスの設定 - GitHub Pagesのサブディレクトリにデプロイする場合に必要 -->
+    <!-- GitHub Pages用のベースパス設定 -->
     <base href="./">
-    <script type="module" crossorigin src="/assets/index-BpFTORP4.js"></script>
+    <script type="module" crossorigin src="/assets/index-Bib1g4rF.js"></script>
     <link rel="stylesheet" crossorigin href="/assets/index-CyZsxR51.css">
   </head>
   <body>
     <div id="root"></div>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
   </body>
-</html>
+</html><script>
+  // GitHub Pagesでのアセットパス問題を解決するスクリプト
+  (function() {
+    function fixAssetPaths() {
+      const scripts = document.querySelectorAll('script[src^="/assets/"]');
+      const links = document.querySelectorAll('link[href^="/assets/"]');
+      
+      scripts.forEach(el => {
+        el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
+      });
+      
+      links.forEach(el => {
+        el.href = el.href.replace(/^(.*?)\/assets\//, './assets/');
+      });
+    }
+    
+    // DOMContentLoadedイベントで実行
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', fixAssetPaths);
+    } else {
+      fixAssetPaths();
+    }
+  })();
+</script>
