@@ -296,41 +296,11 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
               type="button"
               variant="outline"
               onClick={handleReset}
-              className="px-4 py-2 sm:px-5 w-full sm:w-auto"
+              className="px-4 py-2 sm:px-5 w-full"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               リセット
             </Button>
-            
-            {/* モバイルでプレビューへ切り替えるボタン */}
-            {isMobile && (
-              <Button
-                type="button"
-                className="px-4 py-2 sm:px-5 w-full sm:w-auto bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
-                onClick={() => {
-                  if (typeof onSwitchToPreview === 'function') {
-                    onSwitchToPreview();
-                  }
-                }}
-              >
-                <svg
-                  xmlns="http://www.w3.org/2000/svg"
-                  width="16"
-                  height="16"
-                  viewBox="0 0 24 24"
-                  fill="none"
-                  stroke="currentColor"
-                  strokeWidth="2"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                  className="mr-2"
-                >
-                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
-                  <circle cx="12" cy="12" r="3"></circle>
-                </svg>
-                プレビュー表示
-              </Button>
-            )}
           </div>
         </form>
       </Form>
