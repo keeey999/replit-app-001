@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
 import { RotateCcw, EyeIcon } from "lucide-react";
 import PhotoUpload from "@/components/photo-upload";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface EmployeeFormProps {
   defaultValues?: Partial<EmployeeProfileForm>;
@@ -79,7 +80,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
   });
 
   // useIsMobileフックを使用
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 1024 : false;
+  const isMobile = useIsMobile();
   
   // フォームの変更をリアルタイムでプレビューに反映
   React.useEffect(() => {

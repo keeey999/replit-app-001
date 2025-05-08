@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Download } from "lucide-react";
 import { EmployeeProfileForm } from "@shared/schema";
 import { formatDate, getEmptyProfileValue } from "@/lib/utils";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 interface ProfilePreviewProps {
   data: EmployeeProfileForm;
@@ -12,8 +13,8 @@ interface ProfilePreviewProps {
 }
 
 export default function ProfilePreview({ data, isDownloading, onDownload }: ProfilePreviewProps) {
-  // isMobileの検出
-  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 1024 : false;
+  // isMobileフックを使用
+  const isMobile = useIsMobile();
   const {
     name,
     birthdate,
