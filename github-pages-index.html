@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ja">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
@@ -9,13 +9,20 @@
     <meta property="og:title" content="First Impression - 新入社員紹介ページ作成ツール" />
     <meta property="og:description" content="会社の新入社員向けの魅力的な紹介ページを簡単に作成。プロフィール情報の入力とデザインカスタマイズで、印象的な自己紹介ページを作成できます。" />
     <meta property="og:type" content="website" />
-    <!-- ベースパスの設定 - GitHub Pagesのサブディレクトリにデプロイする場合に必要 -->
     <base href="./">
+    <script type="text/javascript">
+      // フォールバックリダイレクト（SPA向け）- GitHub Pages用
+      (function(){
+        var redirect = sessionStorage.redirect;
+        delete sessionStorage.redirect;
+        if (redirect && redirect != location.href) {
+          history.replaceState(null, null, redirect);
+        }
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>
-    <script type="module" src="./src/main.tsx"></script>
-    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
-    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
+    <!-- このファイルはビルド後に assets/index-[hash].js に置き換わります -->
   </body>
 </html>
