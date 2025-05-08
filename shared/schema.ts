@@ -43,7 +43,7 @@ export const insertEmployeeProfileSchema = createInsertSchema(employeeProfiles).
 });
 
 export const employeeProfileFormSchema = z.object({
-  name: z.string().min(1, { message: "名前は必須です" }),
+  name: z.string().optional(),
   birthdate: z.string().optional(),
   previousJob: z.string().optional(),
   hobby: z.string().optional(),

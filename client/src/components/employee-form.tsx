@@ -77,6 +77,14 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
     },
   });
 
+  // フォームの変更をリアルタイムでプレビューに反映
+  React.useEffect(() => {
+    const subscription = form.watch((value) => {
+      onSubmit(value as EmployeeProfileForm);
+    });
+    return () => subscription.unsubscribe();
+  }, [form, onSubmit]);
+
   const handleSubmit = (data: EmployeeProfileForm) => {
     onSubmit(data);
   };
@@ -131,7 +139,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="font-medium">
-                  氏名 <span className="text-destructive">*</span>
+                  氏名
                 </FormLabel>
                 <FormControl>
                   <Input {...field} placeholder="山田 太郎" />
@@ -353,7 +361,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
             />
           </div>
 
-          <div className="flex justify-between pt-6">
+          <div className="flex justify-end pt-6">
             <Button
               type="button"
               variant="outline"
@@ -362,13 +370,6 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               リセット
-            </Button>
-            <Button 
-              type="submit"
-              className="px-5 py-2 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
-            >
-              <EyeIcon className="mr-2 h-4 w-4" />
-              プレビュー更新
             </Button>
           </div>
         </form>

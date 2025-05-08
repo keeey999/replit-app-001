@@ -211,8 +211,8 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
             </div>
             <div className="px-8 pt-0 pb-8">
               <div className="flex flex-col items-center -mt-20 mb-6">
-                <div className="w-28 h-28 bg-white rounded-full p-1 shadow-xl overflow-hidden">
-                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center overflow-hidden">
+                <div className="w-28 h-28 relative bg-white rounded-full p-1 shadow-xl overflow-hidden">
+                  <div className="w-full h-full rounded-full bg-neutral-100 overflow-hidden flex items-center justify-center">
                     {photoUrl ? (
                       <img 
                         src={photoUrl} 
