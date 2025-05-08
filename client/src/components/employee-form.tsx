@@ -22,6 +22,43 @@ const cardStyles = [
   { id: "amber", name: "アンバー", color: "bg-gradient-to-r from-amber-600 to-amber-400" },
 ];
 
+const layoutStyles = [
+  { 
+    id: "standard", 
+    name: "スタンダード", 
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
+        <line x1="3" y1="9" x2="21" y2="9" stroke="currentColor" strokeWidth="2"/>
+        <line x1="3" y1="15" x2="21" y2="15" stroke="currentColor" strokeWidth="2"/>
+      </svg>
+    )
+  },
+  { 
+    id: "modern", 
+    name: "モダン", 
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="18" height="18" rx="2" stroke="currentColor" strokeWidth="2"/>
+        <circle cx="12" cy="9" r="3" stroke="currentColor" strokeWidth="2"/>
+        <path d="M6 21C6 16.5817 8.68629 14 12 14C15.3137 14 18 16.5817 18 21" stroke="currentColor" strokeWidth="2"/>
+      </svg>
+    )
+  },
+  { 
+    id: "compact", 
+    name: "コンパクト", 
+    icon: (
+      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+        <rect x="3" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+        <rect x="14" y="3" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+        <rect x="3" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+        <rect x="14" y="14" width="7" height="7" rx="1" stroke="currentColor" strokeWidth="2"/>
+      </svg>
+    )
+  },
+];
+
 export default function EmployeeForm({ defaultValues, onSubmit, onReset }: EmployeeFormProps) {
   const form = useForm<EmployeeProfileForm>({
     resolver: zodResolver(employeeProfileFormSchema),
@@ -226,34 +263,89 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
             )}
           />
 
-          <FormField
-            control={form.control}
-            name="cardStyle"
-            render={({ field }) => (
-              <FormItem>
-                <FormLabel className="font-medium">カードスタイル</FormLabel>
-                <div className="grid grid-cols-3 gap-3">
-                  {cardStyles.map((style) => (
-                    <div
-                      key={style.id}
-                      onClick={() => field.onChange(style.id)}
-                      className={`cursor-pointer border-2 ${
-                        field.value === style.id
-                          ? "border-primary"
-                          : "border-transparent"
-                      } hover:border-primary rounded-lg p-2 shadow-sm`}
-                    >
-                      <div className={`h-12 ${style.color} rounded-md mb-2`}></div>
-                      <div className="text-xs text-center text-muted-foreground font-medium">
-                        {style.name}
+          <div className="space-y-6 border border-border p-4 rounded-lg bg-accent/30">
+            <h3 className="text-lg font-semibold text-foreground flex items-center">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mr-2 text-primary"
+              >
+                <rect width="18" height="18" x="3" y="3" rx="2" ry="2"></rect>
+                <path d="M3 9h18"></path>
+                <path d="M9 21V9"></path>
+              </svg>
+              デザイン設定
+            </h3>
+            
+            <FormField
+              control={form.control}
+              name="cardStyle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-medium">カラーテーマ</FormLabel>
+                  <div className="grid grid-cols-3 gap-3">
+                    {cardStyles.map((style) => (
+                      <div
+                        key={style.id}
+                        onClick={() => field.onChange(style.id)}
+                        className={`cursor-pointer border-2 ${
+                          field.value === style.id
+                            ? "border-primary"
+                            : "border-transparent"
+                        } hover:border-primary rounded-lg p-2 shadow-sm`}
+                      >
+                        <div className={`h-12 ${style.color} rounded-md mb-2`}></div>
+                        <div className="text-xs text-center text-muted-foreground font-medium">
+                          {style.name}
+                        </div>
                       </div>
-                    </div>
-                  ))}
-                </div>
-                <FormMessage />
-              </FormItem>
-            )}
-          />
+                    ))}
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            
+            <FormField
+              control={form.control}
+              name="layoutStyle"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel className="font-medium">レイアウト</FormLabel>
+                  <div className="grid grid-cols-3 gap-3">
+                    {layoutStyles.map((style) => (
+                      <div
+                        key={style.id}
+                        onClick={() => field.onChange(style.id)}
+                        className={`cursor-pointer border-2 ${
+                          field.value === style.id
+                            ? "border-primary"
+                            : "border-transparent"
+                        } hover:border-primary rounded-lg p-2 shadow-sm`}
+                      >
+                        <div className="h-14 bg-accent rounded-md mb-2 flex items-center justify-center">
+                          <div className="text-lg font-bold text-primary">
+                            {style.icon}
+                          </div>
+                        </div>
+                        <div className="text-xs text-center text-muted-foreground font-medium">
+                          {style.name}
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </div>
 
           <div className="flex justify-between pt-6">
             <Button

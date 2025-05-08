@@ -23,6 +23,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
     comment,
     photoUrl,
     cardStyle,
+    layoutStyle,
   } = data;
 
   // Map of style names to gradient classes
@@ -33,6 +34,254 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
   };
 
   const gradientStyle = styleMap[cardStyle as keyof typeof styleMap] || "from-blue-600 to-blue-400";
+
+  // レイアウトスタイルに応じたコンテンツをレンダリング
+  const renderContent = () => {
+    switch (layoutStyle) {
+      case "modern":
+        return (
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
+            <div className={`bg-gradient-to-br ${gradientStyle} h-60 relative`}>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+              <div className="absolute top-6 left-6">
+                <h3 className="text-xl font-bold text-white">First Impression</h3>
+              </div>
+              <div className="absolute inset-0 flex items-center justify-center">
+                <div className="w-36 h-36 bg-white rounded-full p-1 shadow-xl overflow-hidden">
+                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
+                    {photoUrl ? (
+                      <img 
+                        src={photoUrl} 
+                        alt={name || "プロフィール写真"} 
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="60" 
+                        height="60" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-neutral-300"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div className="p-8">
+              <div className="text-center mb-6">
+                <h3 className="text-2xl font-bold text-foreground">
+                  {name || "お名前"}
+                </h3>
+                <p className="text-muted-foreground mt-1">
+                  {birthdate ? formatDate(birthdate) : "生年月日"}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-5">
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">前職の紹介</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(previousJob)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">趣味</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(hobby)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">特技</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(skill)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">性格</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(personality)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">座右の銘</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(motto)}</p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium text-primary mb-2">コメント</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(comment)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        
+      case "compact":
+        return (
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
+            <div className={`bg-gradient-to-r ${gradientStyle} p-6 flex items-center gap-6`}>
+              <div className="w-20 h-20 bg-white rounded-full p-1 shadow-lg overflow-hidden flex-shrink-0">
+                <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
+                  {photoUrl ? (
+                    <img 
+                      src={photoUrl} 
+                      alt={name || "プロフィール写真"} 
+                      className="w-full h-full object-cover rounded-full"
+                    />
+                  ) : (
+                    <svg 
+                      xmlns="http://www.w3.org/2000/svg" 
+                      width="30" 
+                      height="30" 
+                      viewBox="0 0 24 24" 
+                      fill="none" 
+                      stroke="currentColor"
+                      strokeWidth="1.5"
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      className="text-neutral-300"
+                    >
+                      <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                      <circle cx="12" cy="7" r="4"></circle>
+                    </svg>
+                  )}
+                </div>
+              </div>
+              <div>
+                <div className="mb-1">
+                  <div className="text-sm text-white opacity-80">First Impression</div>
+                </div>
+                <h3 className="text-xl font-bold text-white">
+                  {name || "お名前"}
+                </h3>
+                <p className="text-white text-sm opacity-90 mt-1">
+                  {birthdate ? formatDate(birthdate) : "生年月日"}
+                </p>
+              </div>
+            </div>
+            <div className="p-6">
+              <div className="grid grid-cols-2 gap-x-6 gap-y-5">
+                <div className="border-b border-border pb-3">
+                  <h4 className="text-sm font-medium text-primary mb-1">前職の紹介</h4>
+                  <p className="text-foreground text-sm whitespace-pre-line">{getEmptyProfileValue(previousJob)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-3">
+                  <h4 className="text-sm font-medium text-primary mb-1">趣味</h4>
+                  <p className="text-foreground text-sm whitespace-pre-line">{getEmptyProfileValue(hobby)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-3">
+                  <h4 className="text-sm font-medium text-primary mb-1">特技</h4>
+                  <p className="text-foreground text-sm whitespace-pre-line">{getEmptyProfileValue(skill)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-3">
+                  <h4 className="text-sm font-medium text-primary mb-1">性格</h4>
+                  <p className="text-foreground text-sm whitespace-pre-line">{getEmptyProfileValue(personality)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-3">
+                  <h4 className="text-sm font-medium text-primary mb-1">座右の銘</h4>
+                  <p className="text-foreground text-sm whitespace-pre-line">{getEmptyProfileValue(motto)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-3">
+                  <h4 className="text-sm font-medium text-primary mb-1">コメント</h4>
+                  <p className="text-foreground text-sm whitespace-pre-line">{getEmptyProfileValue(comment)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+        
+      default: // standard
+        return (
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
+            <div className={`bg-gradient-to-br ${gradientStyle} p-8 pb-20 relative`}>
+              <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
+              <div className="relative">
+                <h3 className="text-xl font-bold text-white">First Impression</h3>
+              </div>
+            </div>
+            <div className="px-8 pt-0 pb-8">
+              <div className="flex flex-col items-center -mt-20 mb-6">
+                <div className="w-28 h-28 bg-white rounded-full p-1 shadow-xl overflow-hidden">
+                  <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
+                    {photoUrl ? (
+                      <img 
+                        src={photoUrl} 
+                        alt={name || "プロフィール写真"} 
+                        className="w-full h-full object-cover rounded-full"
+                      />
+                    ) : (
+                      <svg 
+                        xmlns="http://www.w3.org/2000/svg" 
+                        width="48" 
+                        height="48" 
+                        viewBox="0 0 24 24" 
+                        fill="none" 
+                        stroke="currentColor"
+                        strokeWidth="1.5"
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        className="text-neutral-300"
+                      >
+                        <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                        <circle cx="12" cy="7" r="4"></circle>
+                      </svg>
+                    )}
+                  </div>
+                </div>
+                <h3 className="text-2xl font-bold mt-4 text-foreground">
+                  {name || "お名前"}
+                </h3>
+                <p className="text-muted-foreground">
+                  {birthdate ? formatDate(birthdate) : "生年月日"}
+                </p>
+              </div>
+              
+              <div className="grid grid-cols-1 gap-5 mt-6">
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">前職の紹介</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(previousJob)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">趣味</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(hobby)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">特技</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(skill)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">性格</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(personality)}</p>
+                </div>
+                
+                <div className="border-b border-border pb-4">
+                  <h4 className="text-sm font-medium text-primary mb-2">座右の銘</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(motto)}</p>
+                </div>
+                
+                <div>
+                  <h4 className="text-sm font-medium text-primary mb-2">コメント</h4>
+                  <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(comment)}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        );
+    }
+  };
 
   return (
     <div className="w-full">
@@ -60,83 +309,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
           </h2>
           
           <div className="preview-container relative rounded-xl overflow-hidden bg-white">
-            <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
-              <div className={`bg-gradient-to-br ${gradientStyle} p-8 pb-20 relative`}>
-                <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
-                <div className="relative">
-                  <h3 className="text-xl font-bold text-white">First Impression</h3>
-                </div>
-              </div>
-              <div className="px-8 pt-0 pb-8">
-                <div className="flex flex-col items-center -mt-20 mb-6">
-                  <div className="w-28 h-28 bg-white rounded-full p-1 shadow-xl overflow-hidden">
-                    <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
-                      {photoUrl ? (
-                        <img 
-                          src={photoUrl} 
-                          alt={name || "プロフィール写真"} 
-                          className="w-full h-full object-cover rounded-full"
-                        />
-                      ) : (
-                        <svg 
-                          xmlns="http://www.w3.org/2000/svg" 
-                          width="48" 
-                          height="48" 
-                          viewBox="0 0 24 24" 
-                          fill="none" 
-                          stroke="currentColor"
-                          strokeWidth="1.5"
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          className="text-neutral-300"
-                        >
-                          <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
-                          <circle cx="12" cy="7" r="4"></circle>
-                        </svg>
-                      )}
-                    </div>
-                  </div>
-                  <h3 className="text-2xl font-bold mt-4 text-foreground">
-                    {name || "お名前"}
-                  </h3>
-                  <p className="text-muted-foreground">
-                    {birthdate ? formatDate(birthdate) : "生年月日"}
-                  </p>
-                </div>
-                
-                <div className="grid grid-cols-1 gap-5 mt-6">
-                  <div className="border-b border-border pb-4">
-                    <h4 className="text-sm font-medium text-primary mb-2">前職の紹介</h4>
-                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(previousJob)}</p>
-                  </div>
-                  
-                  <div className="border-b border-border pb-4">
-                    <h4 className="text-sm font-medium text-primary mb-2">趣味</h4>
-                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(hobby)}</p>
-                  </div>
-                  
-                  <div className="border-b border-border pb-4">
-                    <h4 className="text-sm font-medium text-primary mb-2">特技</h4>
-                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(skill)}</p>
-                  </div>
-                  
-                  <div className="border-b border-border pb-4">
-                    <h4 className="text-sm font-medium text-primary mb-2">性格</h4>
-                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(personality)}</p>
-                  </div>
-                  
-                  <div className="border-b border-border pb-4">
-                    <h4 className="text-sm font-medium text-primary mb-2">座右の銘</h4>
-                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(motto)}</p>
-                  </div>
-                  
-                  <div>
-                    <h4 className="text-sm font-medium text-primary mb-2">コメント</h4>
-                    <p className="text-foreground whitespace-pre-line">{getEmptyProfileValue(comment)}</p>
-                  </div>
-                </div>
-              </div>
-            </div>
+            {renderContent()}
 
             <div className="mt-8 text-center">
               <Button 
