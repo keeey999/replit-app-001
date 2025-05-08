@@ -1,8 +1,9 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { EmployeeProfileForm } from "@shared/schema";
 import EmployeeForm from "@/components/employee-form";
 import ProfilePreview from "@/components/profile-preview";
 import { downloadAsImage } from "@/lib/downloadAsImage";
+import { useIsMobile } from "@/hooks/use-mobile";
 
 export default function Home() {
   const [profileData, setProfileData] = useState<EmployeeProfileForm>({
@@ -20,6 +21,19 @@ export default function Home() {
   });
   
   const [isDownloading, setIsDownloading] = useState(false);
+  
+  // モバイル用のタブ切り替え（'form'か'preview'）
+  const [activeTab, setActiveTab] = useState<'form' | 'preview'>('form');
+  
+  // isMobileフックを使用（レスポンシブな操作性の向上）
+  const isMobile = useIsMobile();
+  
+  // ダウンロード成功時にプレビュータブに自動切り替え（モバイルの場合）
+  useEffect(() => {
+    if (isMobile && isDownloading === false) {
+      setActiveTab('preview');
+    }
+  }, [isDownloading, isMobile]);
 
   const handleFormSubmit = (data: EmployeeProfileForm) => {
     setProfileData(data);
@@ -69,7 +83,34 @@ export default function Home() {
         </header>
 
         <div className="flex flex-col lg:flex-row gap-8">
-          <div className="w-full lg:w-1/2 mb-6 lg:mb-0">
+          {/* モバイルで表示するタブ切り替え（デスクトップでは表示しない） */}
+          <div className="lg:hidden w-full mb-6">
+            <div className="flex rounded-lg overflow-hidden border border-border">
+              <button
+                className={`flex-1 py-3 text-center font-medium transition-colors ${
+                  activeTab === 'form' 
+                    ? 'bg-primary text-white' 
+                    : 'bg-muted hover:bg-muted/80'
+                }`}
+                onClick={() => setActiveTab('form')}
+              >
+                編集
+              </button>
+              <button
+                className={`flex-1 py-3 text-center font-medium transition-colors ${
+                  activeTab === 'preview' 
+                    ? 'bg-primary text-white' 
+                    : 'bg-muted hover:bg-muted/80'
+                }`}
+                onClick={() => setActiveTab('preview')}
+              >
+                プレビュー
+              </button>
+            </div>
+          </div>
+          
+          {/* フォーム部分 - モバイルではタブに応じて表示/非表示 */}
+          <div className={`w-full lg:w-1/2 mb-6 lg:mb-0 ${activeTab === 'form' ? 'block' : 'hidden lg:block'}`}>
             <EmployeeForm 
               defaultValues={profileData} 
               onSubmit={handleFormSubmit} 
@@ -77,7 +118,8 @@ export default function Home() {
             />
           </div>
           
-          <div className="w-full lg:w-1/2">
+          {/* プレビュー部分 - モバイルではタブに応じて表示/非表示 */}
+          <div className={`w-full lg:w-1/2 ${activeTab === 'preview' ? 'block' : 'hidden lg:block'}`}>
             <ProfilePreview 
               data={profileData} 
               isDownloading={isDownloading}

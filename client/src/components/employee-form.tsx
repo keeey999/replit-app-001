@@ -95,8 +95,8 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
   };
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-md p-8 card-shadow">
-      <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
+    <div className="w-full bg-white rounded-xl shadow-md p-4 sm:p-6 md:p-8 card-shadow">
+      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6 flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
           width="22"
@@ -107,7 +107,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="mr-3 text-primary"
+          className="mr-2 sm:mr-3 text-primary"
         >
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -298,7 +298,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-medium">カラーテーマ</FormLabel>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
                     {cardStyles.map((style) => (
                       <div
                         key={style.id}
@@ -310,7 +310,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
                           field.value === style.id
                             ? "border-primary"
                             : "border-transparent"
-                        } hover:border-primary rounded-lg p-2 shadow-sm`}
+                        } hover:border-primary rounded-lg p-2 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
                       >
                         <div className={`h-12 ${style.color} rounded-md mb-2`}></div>
                         <div className="text-xs text-center text-muted-foreground font-medium">
@@ -330,7 +330,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               render={({ field }) => (
                 <FormItem>
                   <FormLabel className="font-medium">レイアウト</FormLabel>
-                  <div className="grid grid-cols-3 gap-3">
+                  <div className="grid grid-cols-3 gap-2 sm:gap-3">
                     {layoutStyles.map((style) => (
                       <div
                         key={style.id}
@@ -342,7 +342,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
                           field.value === style.id
                             ? "border-primary"
                             : "border-transparent"
-                        } hover:border-primary rounded-lg p-2 shadow-sm`}
+                        } hover:border-primary rounded-lg p-2 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
                       >
                         <div className="h-14 bg-accent rounded-md mb-2 flex items-center justify-center">
                           <div className="text-lg font-bold text-primary">
@@ -361,16 +361,48 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
             />
           </div>
 
-          <div className="flex justify-end pt-6">
+          <div className="flex justify-between pt-6">
             <Button
               type="button"
               variant="outline"
               onClick={handleReset}
-              className="px-5 py-2"
+              className="px-4 py-2 sm:px-5 w-full sm:w-auto"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               リセット
             </Button>
+            
+            {/* モバイルでプレビューへ切り替えるボタン - useIsMobileフックを使用する必要があります */}
+            {typeof window !== 'undefined' && window.innerWidth < 1024 && (
+              <Button
+                type="button"
+                className="px-4 py-2 sm:px-5 w-full sm:w-auto bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
+                onClick={() => {
+                  // 親コンポーネントからの関数呼び出しが必要なのでpropsで渡す必要があります
+                  // この例ではonSwitchToPreviewという関数をpropsで受け取ることを想定
+                  if (typeof onSwitchToPreview === 'function') {
+                    onSwitchToPreview();
+                  }
+                }}
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="mr-2"
+                >
+                  <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                  <circle cx="12" cy="12" r="3"></circle>
+                </svg>
+                プレビュー表示
+              </Button>
+            )}
           </div>
         </form>
       </Form>
