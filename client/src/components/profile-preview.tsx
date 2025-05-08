@@ -31,9 +31,13 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
 
   // デザイン設定用の定数
   const cardStyles = [
-    { id: "blue", name: "ブルー", color: "bg-gradient-to-r from-blue-600 to-blue-400" },
-    { id: "green", name: "グリーン", color: "bg-gradient-to-r from-green-600 to-green-400" },
-    { id: "amber", name: "アンバー", color: "bg-gradient-to-r from-amber-600 to-amber-400" },
+    { id: "blue", name: "ブルー", color: "bg-gradient-to-r from-blue-600 to-blue-400", hex: "#3b82f6" },
+    { id: "green", name: "グリーン", color: "bg-gradient-to-r from-green-600 to-green-400", hex: "#22c55e" },
+    { id: "amber", name: "アンバー", color: "bg-gradient-to-r from-amber-600 to-amber-400", hex: "#f59e0b" },
+    { id: "purple", name: "パープル", color: "bg-gradient-to-r from-purple-600 to-purple-400", hex: "#9333ea" },
+    { id: "pink", name: "ピンク", color: "bg-gradient-to-r from-pink-600 to-pink-400", hex: "#ec4899" },
+    { id: "red", name: "レッド", color: "bg-gradient-to-r from-red-600 to-red-400", hex: "#ef4444" },
+    { id: "custom", name: "カスタム", color: "", hex: "" },
   ];
 
   const layoutStyles = [
@@ -56,14 +60,55 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
     layoutStyle,
   } = data;
 
+  // カスタムカラーを保存するための状態
+  const [customColor, setCustomColor] = useState<string>("#6366f1"); // デフォルトはインディゴ色
+  
   // Map of style names to gradient classes
   const styleMap = {
     blue: "from-blue-600 to-blue-400",
     green: "from-green-600 to-green-400",
     amber: "from-amber-600 to-amber-400",
+    purple: "from-purple-600 to-purple-400",
+    pink: "from-pink-600 to-pink-400",
+    red: "from-red-600 to-red-400",
+    custom: `from-[${customColor}] to-[${adjustColorBrightness(customColor, 40)}]`,
   };
-
-  const gradientStyle = styleMap[cardStyle as keyof typeof styleMap] || "from-blue-600 to-blue-400";
+  
+  // カスタムカラーの場合はインラインスタイルで対応
+  const isCustomColor = cardStyle === 'custom' || !styleMap[cardStyle as keyof typeof styleMap];
+  const gradientStyle = isCustomColor 
+    ? "" // カスタムカラーの場合はここでは設定せず、inlineStyleで直接設定
+    : styleMap[cardStyle as keyof typeof styleMap] || "from-blue-600 to-blue-400";
+    
+  // カスタムカラー用に色の明るさを調整する関数
+  function adjustColorBrightness(hex: string, percent: number) {
+    // #から始まる場合は取り除く
+    hex = hex.replace(/^#/, '');
+    
+    // 16進数を10進数のRGB値に変換
+    let r = parseInt(hex.substring(0, 2), 16);
+    let g = parseInt(hex.substring(2, 4), 16);
+    let b = parseInt(hex.substring(4, 6), 16);
+    
+    // 明るさを調整（正の値で明るく、負の値で暗く）
+    r = Math.min(255, Math.max(0, r + percent));
+    g = Math.min(255, Math.max(0, g + percent));
+    b = Math.min(255, Math.max(0, b + percent));
+    
+    // 10進数を16進数に戻す
+    const rHex = r.toString(16).padStart(2, '0');
+    const gHex = g.toString(16).padStart(2, '0');
+    const bHex = b.toString(16).padStart(2, '0');
+    
+    return `#${rHex}${gHex}${bHex}`;
+  }
+  
+  // カスタムカラー用のグラデーションスタイル
+  const customGradientStyle = {
+    background: isCustomColor 
+      ? `linear-gradient(to bottom right, ${customColor}, ${adjustColorBrightness(customColor, 40)})`
+      : undefined
+  };
 
   // レイアウトスタイルに応じたコンテンツをレンダリング
   const renderContent = () => {
@@ -840,24 +885,91 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
           
           <div>
             <h4 className="font-medium mb-2 text-sm sm:text-base">カラーテーマ</h4>
-            <div className="grid grid-cols-3 gap-2 sm:gap-3">
+            <div className="grid grid-cols-4 gap-2 sm:gap-3">
               {cardStyles.map((style) => (
                 <div
                   key={style.id}
-                  onClick={() => handleStyleUpdate('cardStyle', style.id)}
+                  onClick={() => {
+                    // カスタムカラー選択時は色選択UIを表示するだけでスタイル更新はしない
+                    if (style.id === 'custom') {
+                      // すでにカスタムカラーが選択されている場合は何もしない
+                      if (cardStyle !== 'custom') {
+                        handleStyleUpdate('cardStyle', 'custom');
+                      }
+                    } else {
+                      handleStyleUpdate('cardStyle', style.id);
+                    }
+                  }}
                   className={`cursor-pointer border-2 ${
                     cardStyle === style.id
                       ? "border-primary"
                       : "border-transparent"
                   } hover:border-primary rounded-lg p-2 sm:p-3 shadow-sm transition-all transform hover:scale-105 active:scale-95`}
                 >
-                  <div className={`h-12 sm:h-14 ${style.color} rounded-md mb-2`}></div>
+                  {style.id === 'custom' ? (
+                    <div className="h-12 sm:h-14 rounded-md mb-2 relative overflow-hidden" 
+                      style={{ background: `linear-gradient(to right, #f44336, #e91e63, #9c27b0, #3f51b5, #2196f3, #00bcd4, #009688, #4caf50, #ffeb3b, #ff9800, #ff5722)` }}>
+                      {/* カスタムカラー用の色選択UI */}
+                      <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                        <svg
+                          xmlns="http://www.w3.org/2000/svg"
+                          width="20"
+                          height="20"
+                          viewBox="0 0 24 24"
+                          fill="none"
+                          stroke="white"
+                          strokeWidth="2"
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                        >
+                          <path d="M12 2v8"></path>
+                          <path d="m4.93 10.93 1.41 1.41"></path>
+                          <path d="M2 18h2"></path>
+                          <path d="M20 18h2"></path>
+                          <path d="m19.07 10.93-1.41 1.41"></path>
+                          <path d="M22 22H2"></path>
+                          <path d="m16 6-4 4-4-4"></path>
+                          <path d="M16 18a4 4 0 0 0-8 0"></path>
+                        </svg>
+                      </div>
+                    </div>
+                  ) : (
+                    <div className={`h-12 sm:h-14 ${style.color} rounded-md mb-2`}></div>
+                  )}
                   <div className="text-xs sm:text-sm text-center text-muted-foreground font-medium">
                     {style.name}
                   </div>
                 </div>
               ))}
             </div>
+            
+            {/* カスタムカラー選択時に表示されるカラーピッカー */}
+            {cardStyle === 'custom' && (
+              <div className="mt-4 p-3 border border-border rounded-lg bg-accent/5">
+                <label className="block text-xs font-medium mb-1.5">
+                  カスタムカラーを選択
+                </label>
+                <div className="flex gap-3 items-center">
+                  <div 
+                    className="w-10 h-10 rounded-md border-2 border-border" 
+                    style={{ backgroundColor: customColor }}
+                  ></div>
+                  <input
+                    type="color"
+                    value={customColor}
+                    onChange={(e) => {
+                      setCustomColor(e.target.value);
+                      // 色が変わったらカードスタイルを更新
+                      const updatedData = { ...data, cardStyle: 'custom' };
+                      if (onStyleChange) {
+                        onStyleChange(updatedData);
+                      }
+                    }}
+                    className="h-10 cursor-pointer bg-transparent"
+                  />
+                </div>
+              </div>
+            )}
           </div>
           
           <div>

@@ -304,13 +304,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
               </Button>
             )}
             
-            {/* 更新ボタン - モバイルでは下部に配置 */}
-            <Button
-              type="submit"
-              className="w-full py-3 bg-primary text-white hover:bg-primary/90 active:bg-primary/80 transition-colors"
-            >
-              プロフィールを更新
-            </Button>
+            {/* 更新ボタンは不要なので削除 */}
             
             {/* リセットボタン - モバイルではさらに下部に配置 */}
             <Button

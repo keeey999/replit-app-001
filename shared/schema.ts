@@ -52,7 +52,7 @@ export const employeeProfileFormSchema = z.object({
   motto: z.string().optional(),
   comment: z.string().optional(),
   photoUrl: z.string().optional(),
-  cardStyle: z.enum(["blue", "green", "amber"]).default("blue"),
+  cardStyle: z.string().default("blue"), // カスタムカラーもサポート
   layoutStyle: z.enum(["standard", "modern", "compact"]).default("standard"),
 });
 
