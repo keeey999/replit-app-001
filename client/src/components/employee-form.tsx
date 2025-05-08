@@ -294,12 +294,12 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
           <div className="flex justify-between pt-6">
             <Button
               type="button"
-              variant="outline"
+              variant="destructive"
               onClick={handleReset}
-              className="px-4 py-2 sm:px-5 w-full"
+              className="px-4 py-2 sm:px-5 w-full hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
-              リセット
+              すべてリセット
             </Button>
           </div>
         </form>

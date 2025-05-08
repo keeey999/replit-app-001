@@ -15,6 +15,7 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
 
   const onDrop = useCallback(
     (acceptedFiles: File[]) => {
+      // 複数ファイルがドロップされた場合は最初のファイルのみを使用
       const file = acceptedFiles[0];
       
       if (!file) return;
@@ -30,10 +31,11 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
       }
       
       // Check file size (max 2MB)
-      if (file.size > 2 * 1024 * 1024) {
+      const MAX_SIZE = 2 * 1024 * 1024; // 2MB
+      if (file.size > MAX_SIZE) {
         toast({
           title: "ファイルサイズエラー",
-          description: "画像サイズが2MBを超えています。より小さいファイルを選択してください。",
+          description: `画像サイズが2MBを超えています（${(file.size / (1024 * 1024)).toFixed(1)}MB）。より小さいファイルを選択してください。`,
           variant: "destructive",
         });
         return;
@@ -111,7 +113,7 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
               isUploading && "opacity-50 cursor-not-allowed"
             )}
           >
-            <input {...getInputProps()} disabled={isUploading} />
+            <input {...getInputProps()} disabled={isUploading} multiple={false} accept="image/*" />
             <div className="flex items-center gap-2">
               <Upload className="w-5 h-5 text-primary" />
               <span className="font-medium text-foreground">
@@ -124,7 +126,7 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
             </div>
           </div>
           <p className="mt-2 text-xs text-muted-foreground">
-            JPG, PNG, GIF (最大 2MB)
+            JPG, PNG, GIF のみ・1ファイル・最大 2MB まで
           </p>
         </div>
       </div>
