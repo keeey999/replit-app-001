@@ -576,7 +576,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
             
             <div className="px-8 pt-0 pb-8 bg-white">
               <div className="flex flex-col items-center -mt-16 mb-6">
-                <div className="w-32 h-32 bg-white rounded-full p-1.5 shadow-xl overflow-hidden">
+                <div className="w-32 h-32 bg-white rounded-full p-1.5 shadow-xl overflow-hidden relative z-10">
                   <div className="w-full h-full rounded-full bg-neutral-100 overflow-hidden flex items-center justify-center group">
                     {photoUrl ? (
                       <img 
