@@ -520,7 +520,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                     <p className="text-foreground text-sm whitespace-pre-line pl-8">{getEmptyProfileValue(skill)}</p>
                   </div>
                   
-                  <div>
+                  <div className="pb-4">
                     <div className="flex items-center mb-1">
                       <div className="w-6 h-6 rounded-full bg-primary/10 flex items-center justify-center text-primary mr-2">
                         <svg 
@@ -576,7 +576,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
             
             <div className="px-8 pt-0 pb-8 bg-white">
               <div className="flex flex-col items-center -mt-24 mb-6">
-                <div className="w-32 h-32 relative bg-white rounded-full p-1.5 shadow-2xl overflow-hidden ring-4 ring-white">
+                <div className="w-32 h-32 bg-white rounded-full p-1.5 shadow-xl overflow-hidden">
                   <div className="w-full h-full rounded-full bg-neutral-100 overflow-hidden flex items-center justify-center group">
                     {photoUrl ? (
                       <img 
@@ -601,11 +601,6 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                         <circle cx="12" cy="7" r="4"></circle>
                       </svg>
                     )}
-                  </div>
-                  
-                  {/* 写真の下のバッジ */}
-                  <div className="absolute -bottom-1 left-1/2 transform -translate-x-1/2 bg-primary text-white text-[8px] px-2 py-0.5 rounded-full font-bold tracking-wide">
-                    プロフィール
                   </div>
                 </div>
                 
@@ -822,7 +817,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         </h2>
         
         {/* デザイン設定部分 */}
-        <div className="space-y-4 sm:space-y-6 border border-border p-3 sm:p-5 rounded-lg bg-accent/20 mb-6 shadow-sm">
+        <div className="space-y-4 sm:space-y-6 border border-border p-3 sm:p-5 rounded-lg bg-white mb-6 shadow-sm">
           <h3 className="text-base sm:text-lg font-semibold text-foreground flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
@@ -894,45 +889,45 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         
         <div className="preview-container relative rounded-xl overflow-hidden bg-white shadow-lg">
           {renderContent()}
-
-          <div className="mt-8 text-center">
-            <Button 
-              onClick={onDownload}
-              disabled={!name || isDownloading}
-              className="px-6 py-2.5 h-auto text-base bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
-            >
-              {isDownloading ? (
-                <>
-                  <svg 
-                    className="animate-spin -ml-1 mr-3 h-5 w-5" 
-                    xmlns="http://www.w3.org/2000/svg" 
-                    fill="none" 
-                    viewBox="0 0 24 24"
-                  >
-                    <circle 
-                      className="opacity-25" 
-                      cx="12" 
-                      cy="12" 
-                      r="10" 
-                      stroke="currentColor" 
-                      strokeWidth="4"
-                    ></circle>
-                    <path 
-                      className="opacity-75" 
-                      fill="currentColor" 
-                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                    ></path>
-                  </svg>
-                  生成中...
-                </>
-              ) : (
-                <>
-                  <Download className="mr-2 h-5 w-5" />
-                  画像としてダウンロード
-                </>
-              )}
-            </Button>
-          </div>
+        </div>
+        
+        <div className="mt-8 text-center">
+          <Button 
+            onClick={onDownload}
+            disabled={!name || isDownloading}
+            className="px-6 py-2.5 h-auto text-base bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
+          >
+            {isDownloading ? (
+              <>
+                <svg 
+                  className="animate-spin -ml-1 mr-3 h-5 w-5" 
+                  xmlns="http://www.w3.org/2000/svg" 
+                  fill="none" 
+                  viewBox="0 0 24 24"
+                >
+                  <circle 
+                    className="opacity-25" 
+                    cx="12" 
+                    cy="12" 
+                    r="10" 
+                    stroke="currentColor" 
+                    strokeWidth="4"
+                  ></circle>
+                  <path 
+                    className="opacity-75" 
+                    fill="currentColor" 
+                    d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                  ></path>
+                </svg>
+                生成中...
+              </>
+            ) : (
+              <>
+                <Download className="mr-2 h-5 w-5" />
+                画像としてダウンロード
+              </>
+            )}
+          </Button>
         </div>
       </div>
     </div>
