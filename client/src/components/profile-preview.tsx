@@ -12,6 +12,8 @@ interface ProfilePreviewProps {
 }
 
 export default function ProfilePreview({ data, isDownloading, onDownload }: ProfilePreviewProps) {
+  // isMobileの検出
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 1024 : false;
   const {
     name,
     birthdate,

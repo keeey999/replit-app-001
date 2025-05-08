@@ -14,6 +14,7 @@ interface EmployeeFormProps {
   defaultValues?: Partial<EmployeeProfileForm>;
   onSubmit: (data: EmployeeProfileForm) => void;
   onReset: () => void;
+  onSwitchToPreview?: () => void; // モバイルでプレビュータブに切り替える関数
 }
 
 const cardStyles = [
@@ -59,7 +60,7 @@ const layoutStyles = [
   },
 ];
 
-export default function EmployeeForm({ defaultValues, onSubmit, onReset }: EmployeeFormProps) {
+export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitchToPreview }: EmployeeFormProps) {
   const form = useForm<EmployeeProfileForm>({
     resolver: zodResolver(employeeProfileFormSchema),
     defaultValues: defaultValues || {
@@ -77,6 +78,9 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
     },
   });
 
+  // useIsMobileフックを使用
+  const isMobile = typeof window !== 'undefined' ? window.innerWidth < 1024 : false;
+  
   // フォームの変更をリアルタイムでプレビューに反映
   React.useEffect(() => {
     const subscription = form.watch((value) => {
@@ -372,14 +376,12 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               リセット
             </Button>
             
-            {/* モバイルでプレビューへ切り替えるボタン - useIsMobileフックを使用する必要があります */}
-            {typeof window !== 'undefined' && window.innerWidth < 1024 && (
+            {/* モバイルでプレビューへ切り替えるボタン */}
+            {isMobile && (
               <Button
                 type="button"
                 className="px-4 py-2 sm:px-5 w-full sm:w-auto bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
                 onClick={() => {
-                  // 親コンポーネントからの関数呼び出しが必要なのでpropsで渡す必要があります
-                  // この例ではonSwitchToPreviewという関数をpropsで受け取ることを想定
                   if (typeof onSwitchToPreview === 'function') {
                     onSwitchToPreview();
                   }
