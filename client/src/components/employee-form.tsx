@@ -49,19 +49,19 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
   };
 
   return (
-    <div className="w-full bg-white rounded-xl shadow-md p-6">
-      <h2 className="text-xl font-semibold text-neutral-800 mb-6 flex items-center">
+    <div className="w-full bg-white rounded-xl shadow-md p-8 card-shadow">
+      <h2 className="text-2xl font-bold text-foreground mb-6 flex items-center">
         <svg
           xmlns="http://www.w3.org/2000/svg"
-          width="20"
-          height="20"
+          width="22"
+          height="22"
           viewBox="0 0 24 24"
           fill="none"
           stroke="currentColor"
           strokeWidth="2"
           strokeLinecap="round"
           strokeLinejoin="round"
-          className="mr-2 text-primary"
+          className="mr-3 text-primary"
         >
           <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
           <circle cx="9" cy="7" r="4"></circle>
@@ -142,7 +142,11 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               <FormItem>
                 <FormLabel className="font-medium">趣味</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="読書、旅行、料理など" />
+                  <Textarea
+                    {...field}
+                    placeholder="読書、旅行、料理など"
+                    rows={2}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -156,7 +160,11 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               <FormItem>
                 <FormLabel className="font-medium">特技</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="語学、プログラミングなど" />
+                  <Textarea
+                    {...field}
+                    placeholder="語学、プログラミングなど"
+                    rows={2}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -170,7 +178,11 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               <FormItem>
                 <FormLabel className="font-medium">性格</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="明るい、冷静、几帳面など" />
+                  <Textarea
+                    {...field}
+                    placeholder="明るい、冷静、几帳面など"
+                    rows={2}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -184,7 +196,11 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
               <FormItem>
                 <FormLabel className="font-medium">座右の銘</FormLabel>
                 <FormControl>
-                  <Input {...field} placeholder="人生の指針となる言葉" />
+                  <Textarea
+                    {...field}
+                    placeholder="人生の指針となる言葉"
+                    rows={2}
+                  />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -238,15 +254,20 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
             )}
           />
 
-          <div className="flex justify-between pt-4">
+          <div className="flex justify-between pt-6">
             <Button
               type="button"
               variant="outline"
               onClick={handleReset}
+              className="px-5 py-2"
             >
+              <RotateCcw className="mr-2 h-4 w-4" />
               リセット
             </Button>
-            <Button type="submit">
+            <Button 
+              type="submit"
+              className="px-5 py-2 bg-gradient-to-r from-primary to-blue-500 hover:from-primary/90 hover:to-blue-500/90"
+            >
               <EyeIcon className="mr-2 h-4 w-4" />
               プレビュー更新
             </Button>

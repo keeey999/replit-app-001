@@ -19,7 +19,7 @@ export const downloadAsImage = async (
       allowTaint: true,
       useCORS: true,
       scale: 2,
-      backgroundColor: null,
+      backgroundColor: "white", // 背景を白に設定
       logging: false,
     });
 
