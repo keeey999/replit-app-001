@@ -11,9 +11,9 @@
     <meta property="og:type" content="website" />
     <!-- GitHub Pages用のベースパス設定 -->
     <base href="./">
-    <script type="module" crossorigin src="/assets/index-Bib1g4rF.js"></script>
-    <link rel="stylesheet" crossorigin href="/assets/index-CyZsxR51.css">
-  </head>
+    <script type="module" crossorigin src="./assets/index-Bib1g4rF.js"></script>
+    <link rel="stylesheet" crossorigin href="./assets/index-CyZsxR51.css">
+  <script src="./path-fix.js"></script></head>
   <body>
     <div id="root"></div>
   </body>
@@ -21,23 +21,39 @@
   // GitHub Pagesでのアセットパス問題を解決するスクリプト
   (function() {
     function fixAssetPaths() {
-      const scripts = document.querySelectorAll('script[src^="/assets/"]');
-      const links = document.querySelectorAll('link[href^="/assets/"]');
-      
-      scripts.forEach(el => {
-        el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
+      // スクリプトタグのパス修正
+      document.querySelectorAll('script[src]').forEach(el => {
+        if (el.src.match(/\/assets\//)) {
+          el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
+          console.log('Fixed script path:', el.src);
+        }
       });
       
-      links.forEach(el => {
-        el.href = el.href.replace(/^(.*?)\/assets\//, './assets/');
+      // スタイルシートのパス修正
+      document.querySelectorAll('link[rel="stylesheet"]').forEach(el => {
+        if (el.href.match(/\/assets\//)) {
+          el.href = el.href.replace(/^(.*?)\/assets\//, './assets/');
+          console.log('Fixed style path:', el.href);
+        }
+      });
+      
+      // イメージタグのパス修正（必要に応じて）
+      document.querySelectorAll('img[src]').forEach(el => {
+        if (el.src.match(/\/assets\//)) {
+          el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
+        }
       });
     }
+    
+    // 即時実行と遅延実行の両方を設定
+    fixAssetPaths();
     
     // DOMContentLoadedイベントで実行
     if (document.readyState === 'loading') {
       document.addEventListener('DOMContentLoaded', fixAssetPaths);
-    } else {
-      fixAssetPaths();
     }
+    
+    // ロード完了時にも実行
+    window.addEventListener('load', fixAssetPaths);
   })();
 </script>
