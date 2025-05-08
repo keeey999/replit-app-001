@@ -109,6 +109,11 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
       ? `linear-gradient(to bottom right, ${customColor}, ${adjustColorBrightness(customColor, 40)})`
       : undefined
   };
+  
+  // Modernレイアウト用のヘッダースタイル
+  const modernHeaderStyle = isCustomColor
+    ? { style: customGradientStyle } 
+    : { className: `bg-gradient-to-br ${gradientStyle}` };
 
   // レイアウトスタイルに応じたコンテンツをレンダリング
   const renderContent = () => {
@@ -117,7 +122,10 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         return (
           <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-xl" style={{ minHeight: "540px" }}>
             {/* 背景の円形パターンが動くアニメーション効果 */}
-            <div className={`bg-gradient-to-br ${gradientStyle} h-72 relative overflow-hidden`}>
+            <div 
+              {...modernHeaderStyle}
+              className={isCustomColor ? "h-72 relative overflow-hidden" : `bg-gradient-to-br ${gradientStyle} h-72 relative overflow-hidden`}
+            >
               {/* 装飾的な円形要素 */}
               <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-xl"></div>
               <div className="absolute top-40 -left-20 w-40 h-40 bg-white/10 rounded-full blur-lg"></div>
@@ -354,7 +362,10 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
             {/* サイドカラム付きレイアウト */}
             <div className="grid grid-cols-12 h-full">
               {/* サイドバー部分 */}
-              <div className={`col-span-4 bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative h-full`}>
+              <div 
+                className={isCustomColor ? "col-span-4 p-5 flex flex-col relative h-full" : `col-span-4 bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative h-full`}
+                style={isCustomColor ? customGradientStyle : undefined}
+              >
                 {/* 背景装飾 */}
                 <div className="absolute inset-0 bg-gradient-to-b from-black/20 to-transparent"></div>
                 
@@ -595,7 +606,10 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
       default: // standard
         return (
           <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
-            <div className={`bg-gradient-to-br ${gradientStyle} p-8 pb-32 relative`}>
+            <div 
+              className={isCustomColor ? "p-8 pb-32 relative" : `bg-gradient-to-br ${gradientStyle} p-8 pb-32 relative`}
+              style={isCustomColor ? customGradientStyle : undefined}
+            >
               {/* 背景装飾 */}
               <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
               <div className="absolute -top-20 -right-10 w-40 h-40 bg-white/5 rounded-full"></div>
