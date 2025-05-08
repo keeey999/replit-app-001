@@ -887,8 +887,31 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
           </div>
         </div>
         
-        <div className="preview-container relative rounded-xl overflow-hidden bg-white shadow-lg">
-          {renderContent()}
+        <div className="preview-container relative rounded-xl overflow-hidden bg-white shadow-lg mb-4">
+          {/* モバイルでのスクロールヒント（スマホのみ表示） */}
+          {isMobile && (
+            <div className="absolute top-2 right-2 z-20 bg-white/80 backdrop-blur-sm text-xs px-2 py-1 rounded-full shadow-sm flex items-center text-muted-foreground">
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="12"
+                height="12"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mr-1"
+              >
+                <path d="M15 15 9 9"></path>
+                <path d="M9 15 15 9"></path>
+              </svg>
+              スクロールできます
+            </div>
+          )}
+          <div className={isMobile ? "overflow-auto max-h-[70vh] sm:max-h-full" : ""}>
+            {renderContent()}
+          </div>
         </div>
         
         <div className="mt-6 sm:mt-8 text-center">

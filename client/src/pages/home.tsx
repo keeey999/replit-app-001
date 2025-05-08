@@ -98,26 +98,60 @@ export default function Home() {
         <div className="flex flex-col lg:flex-row gap-8">
           {/* モバイルで表示するタブ切り替え（デスクトップでは表示しない） */}
           <div className="lg:hidden w-full mb-6">
-            <div className="flex rounded-lg overflow-hidden border border-border">
+            <div className="flex rounded-lg overflow-hidden border border-border shadow-sm">
               <button
-                className={`flex-1 py-3 text-center font-medium transition-colors ${
+                className={`flex-1 py-3.5 text-center font-medium transition-colors ${
                   activeTab === 'form' 
-                    ? 'bg-primary text-white' 
-                    : 'bg-muted hover:bg-muted/80'
+                    ? 'bg-primary text-white shadow-sm' 
+                    : 'bg-white hover:bg-accent/10'
                 }`}
                 onClick={() => setActiveTab('form')}
               >
-                編集
+                <span className="flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="mr-1.5"
+                  >
+                    <path d="M12 20h9"></path>
+                    <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
+                  </svg>
+                  編集
+                </span>
               </button>
               <button
-                className={`flex-1 py-3 text-center font-medium transition-colors ${
+                className={`flex-1 py-3.5 text-center font-medium transition-colors ${
                   activeTab === 'preview' 
-                    ? 'bg-primary text-white' 
-                    : 'bg-muted hover:bg-muted/80'
+                    ? 'bg-primary text-white shadow-sm' 
+                    : 'bg-white hover:bg-accent/10'
                 }`}
                 onClick={() => setActiveTab('preview')}
               >
-                プレビュー
+                <span className="flex items-center justify-center">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="16"
+                    height="16"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    className="mr-1.5"
+                  >
+                    <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z"></path>
+                    <circle cx="12" cy="12" r="3"></circle>
+                  </svg>
+                  プレビュー
+                </span>
               </button>
             </div>
           </div>
@@ -138,7 +172,7 @@ export default function Home() {
             {isMobile && activeTab === 'preview' && (
               <button 
                 onClick={() => setActiveTab('form')}
-                className="mb-4 flex items-center text-sm text-muted-foreground hover:text-primary transition-colors"
+                className="mb-4 py-2 px-3 flex items-center text-sm bg-white border border-border rounded-lg hover:bg-accent/5 text-muted-foreground hover:text-primary transition-colors"
               >
                 <svg
                   xmlns="http://www.w3.org/2000/svg"
@@ -150,11 +184,11 @@ export default function Home() {
                   strokeWidth="2"
                   strokeLinecap="round"
                   strokeLinejoin="round"
-                  className="mr-1"
+                  className="mr-1.5"
                 >
                   <path d="m15 18-6-6 6-6"></path>
                 </svg>
-                編集に戻る
+                プロフィール編集に戻る
               </button>
             )}
             

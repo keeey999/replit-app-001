@@ -246,10 +246,31 @@ export default function PhotoUpload({ value, onChange }: PhotoUploadProps) {
               </span>
             </div>
           </div>
-          <p className="mt-2 text-xs text-muted-foreground">
-            JPG, PNG, GIF のみ・1ファイル・最大 10MB まで
-            <span className="hidden sm:inline"> • スマホの方はカメラで撮影も可能</span>
-          </p>
+          <div className="mt-2">
+            <p className="text-xs text-muted-foreground">
+              JPG, PNG, GIF のみ・1ファイル・最大 10MB まで
+            </p>
+            <p className="mt-1 text-xs font-medium text-primary-foreground/80">
+              <span className="inline sm:hidden">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="10"
+                  height="10"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="inline-block mr-0.5"
+                >
+                  <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"></path>
+                  <circle cx="12" cy="13" r="4"></circle>
+                </svg>
+                タップしてカメラで撮影も可能です
+              </span>
+            </p>
+          </div>
         </div>
       </div>
     </div>
