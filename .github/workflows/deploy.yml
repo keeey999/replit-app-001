@@ -23,9 +23,45 @@ jobs:
         
       - name: Build client
         run: |
+          # 環境変数とファイルの準備
+          cp client/.env.production .
+          cp -f client/index-production.html client/index.html
+          cp -f 404.html client/public/
+          
+          # ビルドの実行
           npm run build
-          cp 404.html dist/public/
+          
+          # GitHub Pages用のファイル準備
           touch dist/public/.nojekyll
+          cp -f 404.html dist/public/
+          
+          # アセットパスの修正スクリプト追加（HTMLファイルにインラインで）
+          cat >> dist/public/index.html << 'EOL'
+          <script>
+            // GitHub Pagesでのアセットパス問題を解決するスクリプト
+            (function() {
+              function fixAssetPaths() {
+                const scripts = document.querySelectorAll('script[src^="/assets/"]');
+                const links = document.querySelectorAll('link[href^="/assets/"]');
+                
+                scripts.forEach(el => {
+                  el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
+                });
+                
+                links.forEach(el => {
+                  el.href = el.href.replace(/^(.*?)\/assets\//, './assets/');
+                });
+              }
+              
+              // DOMContentLoadedイベントで実行
+              if (document.readyState === 'loading') {
+                document.addEventListener('DOMContentLoaded', fixAssetPaths);
+              } else {
+                fixAssetPaths();
+              }
+            })();
+          </script>
+          EOL
           
       - name: Deploy to GitHub Pages
         uses: JamesIves/github-pages-deploy-action@v4

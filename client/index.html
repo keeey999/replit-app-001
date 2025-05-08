@@ -15,6 +15,27 @@
   <body>
     <div id="root"></div>
     <script type="module" src="./src/main.tsx"></script>
+    <!-- 以下はローカル開発時のみ使用されるスクリプト -->
+    <script>
+      // GitHub Pagesでのアセットパス解決のための処理
+      // 404エラーが発生した場合にベースURLからの相対パスで再読み込みを試みる
+      window.addEventListener('error', function(e) {
+        const target = e.target;
+        if (target.tagName === 'LINK' || target.tagName === 'SCRIPT') {
+          const src = target.href || target.src;
+          if (src && src.includes('/assets/')) {
+            const newSrc = src.replace(/\/assets\//, './assets/');
+            if (target.tagName === 'LINK') {
+              target.href = newSrc;
+            } else {
+              target.src = newSrc;
+            }
+            console.log('Asset path corrected:', newSrc);
+            return false;
+          }
+        }
+      }, true);
+    </script>
     <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
     <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
   </body>
