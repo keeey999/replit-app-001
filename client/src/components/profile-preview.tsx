@@ -858,11 +858,11 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         
         {/* デザイン設定部分 */}
         <div className="space-y-4 sm:space-y-6 border border-border p-3 sm:p-5 rounded-lg bg-white mb-6 shadow-sm">
-          <h3 className="text-base sm:text-lg font-semibold text-foreground flex items-center">
+          <h3 className="text-sm sm:text-base font-medium text-foreground flex items-center">
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="18"
-              height="18"
+              width="16"
+              height="16"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
