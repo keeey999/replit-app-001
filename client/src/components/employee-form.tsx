@@ -291,12 +291,33 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
 
 
 
-          <div className="flex justify-between pt-6">
+          <div className="flex flex-col sm:flex-row justify-between gap-3 pt-6">
+            {/* モバイルでプレビューに切り替えるボタン（デスクトップでは非表示） */}
+            {onSwitchToPreview && (
+              <Button
+                type="button"
+                onClick={onSwitchToPreview}
+                className="block sm:hidden w-full bg-primary text-white hover:bg-primary/90 active:bg-primary/80 transition-colors py-3"
+              >
+                <EyeIcon className="mr-2 h-4 w-4" />
+                プレビューを確認
+              </Button>
+            )}
+            
+            {/* 更新ボタン - モバイルでは下部に配置 */}
+            <Button
+              type="submit"
+              className="w-full py-3 bg-primary text-white hover:bg-primary/90 active:bg-primary/80 transition-colors"
+            >
+              プロフィールを更新
+            </Button>
+            
+            {/* リセットボタン - モバイルではさらに下部に配置 */}
             <Button
               type="button"
               variant="destructive"
               onClick={handleReset}
-              className="px-4 py-2 sm:px-5 w-full hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
+              className="px-4 py-3 w-full hover:bg-destructive/90 active:bg-destructive/80 transition-colors"
             >
               <RotateCcw className="mr-2 h-4 w-4" />
               すべてリセット
