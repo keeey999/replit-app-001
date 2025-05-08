@@ -36,6 +36,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset }: Emplo
       comment: "",
       photoUrl: "",
       cardStyle: "blue",
+      layoutStyle: "standard",
     },
   });
 

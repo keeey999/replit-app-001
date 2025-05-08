@@ -16,6 +16,7 @@ export default function Home() {
     comment: "",
     photoUrl: "",
     cardStyle: "blue",
+    layoutStyle: "standard",
   });
   
   const [isDownloading, setIsDownloading] = useState(false);
@@ -36,6 +37,7 @@ export default function Home() {
       comment: "",
       photoUrl: "",
       cardStyle: "blue",
+      layoutStyle: "standard",
     });
   };
 
@@ -48,10 +50,22 @@ export default function Home() {
     <div className="bg-background min-h-screen">
       <div className="container mx-auto px-4 py-8 max-w-6xl">
         <header className="mb-12 text-center">
-          <h1 className="gradient-heading mb-4">新入社員紹介ジェネレーター</h1>
-          <p className="text-muted-foreground text-lg max-w-2xl mx-auto">
-            写真とプロフィール情報を入力して、新入社員のためのおしゃれな紹介ページを作成しましょう
+          <div className="flex items-center justify-center mb-4">
+            <div className="relative">
+              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">
+                <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-500 to-primary">
+                  First Impression
+                </span>
+              </h1>
+              <div className="absolute -top-3 -right-5 bg-gradient-to-br from-primary to-blue-500 text-white text-xs px-2 py-1 rounded-full transform rotate-12">
+                Beta
+              </div>
+            </div>
+          </div>
+          <p className="text-muted-foreground text-lg max-w-2xl mx-auto mb-1">
+            写真とプロフィール情報を入力して、新入社員のためのおしゃれな紹介ページを作成
           </p>
+          <p className="text-sm text-muted-foreground">新入社員紹介ジェネレーター</p>
         </header>
 
         <div className="flex flex-col lg:flex-row gap-8">
@@ -73,7 +87,7 @@ export default function Home() {
         </div>
 
         <footer className="mt-16 text-center text-muted-foreground text-sm">
-          <p>© {new Date().getFullYear()} 新入社員紹介ジェネレーター</p>
+          <p>© {new Date().getFullYear()} First Impression</p>
         </footer>
       </div>
     </div>

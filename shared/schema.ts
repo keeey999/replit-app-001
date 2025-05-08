@@ -53,6 +53,7 @@ export const employeeProfileFormSchema = z.object({
   comment: z.string().optional(),
   photoUrl: z.string().optional(),
   cardStyle: z.enum(["blue", "green", "amber"]).default("blue"),
+  layoutStyle: z.enum(["standard", "modern", "compact"]).default("standard"),
 });
 
 export type InsertUser = z.infer<typeof insertUserSchema>;

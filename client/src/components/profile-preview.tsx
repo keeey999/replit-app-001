@@ -64,11 +64,11 @@ export default function ProfilePreview({ data, isDownloading, onDownload }: Prof
               <div className={`bg-gradient-to-br ${gradientStyle} p-8 pb-20 relative`}>
                 <div className="absolute inset-0 bg-gradient-to-br from-white/10 to-transparent"></div>
                 <div className="relative">
-                  <h3 className="text-xl font-bold text-white">新入社員紹介</h3>
+                  <h3 className="text-xl font-bold text-white">First Impression</h3>
                 </div>
               </div>
               <div className="px-8 pt-0 pb-8">
-                <div className="flex flex-col items-center -mt-16 mb-6">
+                <div className="flex flex-col items-center -mt-20 mb-6">
                   <div className="w-28 h-28 bg-white rounded-full p-1 shadow-xl overflow-hidden">
                     <div className="w-full h-full rounded-full bg-neutral-100 flex items-center justify-center">
                       {photoUrl ? (
