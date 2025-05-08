@@ -1,59 +1,14 @@
 <!DOCTYPE html>
-<html lang="ja">
+<html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-    <title>First Impression - 新入社員紹介ページ作成ツール</title>
-    <meta name="description" content="会社の新入社員向けの魅力的な紹介ページを簡単に作成。プロフィール情報の入力とデザインカスタマイズで、印象的な自己紹介ページを作成できます。" />
-    <meta name="keywords" content="新入社員紹介, プロフィール作成, 自己紹介ページ, 社内紹介" />
-    <meta property="og:title" content="First Impression - 新入社員紹介ページ作成ツール" />
-    <meta property="og:description" content="会社の新入社員向けの魅力的な紹介ページを簡単に作成。プロフィール情報の入力とデザインカスタマイズで、印象的な自己紹介ページを作成できます。" />
-    <meta property="og:type" content="website" />
-    <!-- GitHub Pages用のベースパス設定 -->
-    <base href="./">
-    <script type="module" crossorigin src="./assets/index-Bib1g4rF.js"></script>
+    <script type="module" crossorigin src="./assets/index-BpFTORP4.js"></script>
     <link rel="stylesheet" crossorigin href="./assets/index-CyZsxR51.css">
-  <script src="./path-fix.js"></script></head>
+  </head>
   <body>
     <div id="root"></div>
+    <!-- This is a replit script which adds a banner on the top of the page when opened in development mode outside the replit environment -->
+    <script type="text/javascript" src="https://replit.com/public/js/replit-dev-banner.js"></script>
   </body>
-</html><script>
-  // GitHub Pagesでのアセットパス問題を解決するスクリプト
-  (function() {
-    function fixAssetPaths() {
-      // スクリプトタグのパス修正
-      document.querySelectorAll('script[src]').forEach(el => {
-        if (el.src.match(/\/assets\//)) {
-          el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
-          console.log('Fixed script path:', el.src);
-        }
-      });
-      
-      // スタイルシートのパス修正
-      document.querySelectorAll('link[rel="stylesheet"]').forEach(el => {
-        if (el.href.match(/\/assets\//)) {
-          el.href = el.href.replace(/^(.*?)\/assets\//, './assets/');
-          console.log('Fixed style path:', el.href);
-        }
-      });
-      
-      // イメージタグのパス修正（必要に応じて）
-      document.querySelectorAll('img[src]').forEach(el => {
-        if (el.src.match(/\/assets\//)) {
-          el.src = el.src.replace(/^(.*?)\/assets\//, './assets/');
-        }
-      });
-    }
-    
-    // 即時実行と遅延実行の両方を設定
-    fixAssetPaths();
-    
-    // DOMContentLoadedイベントで実行
-    if (document.readyState === 'loading') {
-      document.addEventListener('DOMContentLoaded', fixAssetPaths);
-    }
-    
-    // ロード完了時にも実行
-    window.addEventListener('load', fixAssetPaths);
-  })();
-</script>
+</html>
