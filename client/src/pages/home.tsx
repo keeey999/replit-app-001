@@ -158,11 +158,14 @@ export default function Home() {
               </button>
             )}
             
-            <ProfilePreview 
-              data={profileData} 
-              isDownloading={isDownloading}
-              onDownload={handleDownload}
-            />
+            <div className={isMobile ? 'mx-auto w-full max-w-[500px]' : ''}>
+              <ProfilePreview 
+                data={profileData} 
+                isDownloading={isDownloading}
+                onDownload={handleDownload}
+                onStyleChange={(updatedData) => setProfileData(updatedData)}
+              />
+            </div>
           </div>
         </div>
 
