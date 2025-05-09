@@ -358,12 +358,18 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         
       case "compact":
         return (
-          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
-            {/* サイドカラム付きレイアウト */}
-            <div className="grid grid-cols-12 h-full">
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: isMobile ? "480px" : "540px", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
+            {/* サイドカラム付きレイアウト - モバイルでは縦並び */}
+            <div className={isMobile ? "flex flex-col h-full" : "grid grid-cols-12 h-full"}>
               {/* サイドバー部分 */}
               <div 
-                className={isCustomColor ? "col-span-4 p-5 flex flex-col relative h-full" : `col-span-4 bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative h-full`}
+                className={isCustomColor 
+                  ? isMobile 
+                    ? "p-5 flex flex-col relative" 
+                    : "col-span-4 p-5 flex flex-col relative h-full" 
+                  : isMobile 
+                    ? `bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative` 
+                    : `col-span-4 bg-gradient-to-b ${gradientStyle} p-5 flex flex-col relative h-full`}
                 style={isCustomColor ? customGradientStyle : undefined}
               >
                 {/* 背景装飾 */}
@@ -494,7 +500,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
               </div>
               
               {/* メインコンテンツエリア */}
-              <div className="col-span-8 p-5 bg-white">
+              <div className={isMobile ? "p-5 bg-white" : "col-span-8 p-5 bg-white"}>
                 {/* テーブル風レイアウト */}
                 <div className="flex flex-col gap-4">
                   <div className="border-b border-border pb-4">
@@ -605,9 +611,9 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         
       default: // standard
         return (
-          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: "540px" }}>
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: isMobile ? "480px" : "540px", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
             <div 
-              className={isCustomColor ? "p-8 pb-32 relative" : `bg-gradient-to-br ${gradientStyle} p-8 pb-32 relative`}
+              className={isCustomColor ? "p-6 sm:p-8 pb-28 sm:pb-32 relative" : `bg-gradient-to-br ${gradientStyle} p-6 sm:p-8 pb-28 sm:pb-32 relative`}
               style={isCustomColor ? customGradientStyle : undefined}
             >
               {/* 背景装飾 */}
