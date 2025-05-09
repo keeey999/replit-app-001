@@ -147,6 +147,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                         src={photoUrl} 
                         alt={name || "プロフィール写真"} 
                         className="w-full h-full object-cover rounded-full"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                       />
                     ) : (
                       <svg 
@@ -392,6 +393,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                         src={photoUrl} 
                         alt={name || "プロフィール写真"} 
                         className="w-full h-full object-cover rounded-lg"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                       />
                     ) : (
                       <div className="flex items-center justify-center w-full h-full bg-accent/20 rounded-lg">
@@ -648,6 +650,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
                         src={photoUrl} 
                         alt={name || "プロフィール写真"} 
                         className="w-full h-full object-cover rounded-full transition-transform duration-700 group-hover:scale-110"
+                        style={{ objectFit: 'cover', objectPosition: 'center' }}
                       />
                     ) : (
                       <svg 

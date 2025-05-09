@@ -14,6 +14,13 @@ export const downloadAsImage = async (
       throw new Error("Element not found");
     }
 
+    // 画像の読み込みを待つ
+    const imageElements = element.querySelectorAll('img');
+    if (imageElements.length > 0) {
+      // すべての画像が完全に読み込まれるのを少し待つ
+      await new Promise(resolve => setTimeout(resolve, 300));
+    }
+
     // Create canvas from the element
     const canvas = await html2canvas(element, {
       allowTaint: true,
@@ -22,6 +29,17 @@ export const downloadAsImage = async (
       backgroundColor: "white", // 背景を白に設定
       logging: false,
       width: window.innerWidth < 768 ? Math.min(element.offsetWidth, 400) : element.offsetWidth, // モバイルでは幅を制限
+      imageTimeout: 0, // 画像のタイムアウトを無効にする
+      onclone: (clonedDoc) => {
+        // クローンされたドキュメント内の画像に特別なスタイルを適用
+        const clonedImages = clonedDoc.querySelectorAll('img');
+        clonedImages.forEach(img => {
+          // 画像の縦横比を保持するよう明示的に設定
+          img.style.objectFit = 'cover';
+          img.style.width = '100%';
+          img.style.height = '100%';
+        });
+      }
     });
 
     // Convert canvas to data URL
