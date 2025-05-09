@@ -18,9 +18,10 @@ export const downloadAsImage = async (
     const canvas = await html2canvas(element, {
       allowTaint: true,
       useCORS: true,
-      scale: 2,
+      scale: window.innerWidth < 768 ? 1.5 : 2, // モバイルではスケールを調整
       backgroundColor: "white", // 背景を白に設定
       logging: false,
+      width: window.innerWidth < 768 ? Math.min(element.offsetWidth, 400) : element.offsetWidth, // モバイルでは幅を制限
     });
 
     // Convert canvas to data URL

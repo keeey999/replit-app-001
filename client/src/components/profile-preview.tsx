@@ -120,11 +120,11 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
     switch (layoutStyle) {
       case "modern":
         return (
-          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-xl" style={{ minHeight: "540px" }}>
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-xl" style={{ minHeight: isMobile ? "480px" : "540px", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
             {/* 背景の円形パターンが動くアニメーション効果 */}
             <div 
               {...modernHeaderStyle}
-              className={isCustomColor ? "h-72 relative overflow-hidden" : `bg-gradient-to-br ${gradientStyle} h-72 relative overflow-hidden`}
+              className={isCustomColor ? "h-64 sm:h-72 relative overflow-hidden" : `bg-gradient-to-br ${gradientStyle} h-64 sm:h-72 relative overflow-hidden`}
             >
               {/* 装飾的な円形要素 */}
               <div className="absolute -top-20 -right-20 w-64 h-64 bg-white/10 rounded-full blur-xl"></div>

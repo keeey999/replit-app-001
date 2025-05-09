@@ -114,26 +114,7 @@ export default function EmployeeForm({ defaultValues, onSubmit, onReset, onSwitc
 
   return (
     <div className="w-full bg-white rounded-xl shadow-md p-4 sm:p-6 md:p-8 card-shadow">
-      <h2 className="text-xl sm:text-2xl font-bold text-foreground mb-6 flex items-center">
-        <svg
-          xmlns="http://www.w3.org/2000/svg"
-          width="22"
-          height="22"
-          viewBox="0 0 24 24"
-          fill="none"
-          stroke="currentColor"
-          strokeWidth="2"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          className="mr-2 sm:mr-3 text-primary"
-        >
-          <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"></path>
-          <circle cx="9" cy="7" r="4"></circle>
-          <line x1="19" x2="19" y1="8" y2="14"></line>
-          <line x1="22" x2="16" y1="11" y2="11"></line>
-        </svg>
-        プロフィール情報
-      </h2>
+      {/* プロフィール情報の見出しは不要なので削除 */}
 
       <Form {...form}>
         <form onSubmit={form.handleSubmit(handleSubmit)} className="space-y-6">

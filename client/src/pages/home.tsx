@@ -79,7 +79,7 @@ export default function Home() {
         <header className="mb-12 text-center">
           <div className="flex items-center justify-center mb-4">
             <div className="relative">
-              <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight">
+              <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight">
                 <span className="bg-clip-text text-transparent bg-gradient-to-r from-primary via-blue-500 to-primary">
                   First Impression
                 </span>
