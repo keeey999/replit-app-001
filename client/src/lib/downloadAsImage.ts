@@ -25,40 +25,29 @@ export const downloadAsImage = async (
     const originalStyles = {
       width: element.style.width,
       maxWidth: element.style.maxWidth,
-      margin: element.style.margin,
-      transform: element.style.transform,
-      padding: element.style.padding,
-      position: element.style.position
+      margin: element.style.margin
     };
 
     // モバイルの場合、ダウンロード用に一時的に要素のスタイルを変更
     if (window.innerWidth < 768) {
-      // クリッピングされないように一時的に幅を固定
-      element.style.width = '95%';
-      element.style.maxWidth = '480px'; // 十分な幅を確保
-      element.style.margin = '0 auto';
-      element.style.transform = 'scale(0.95)'; // 少し縮小して確実に全体が収まるように
-      element.style.padding = '0';
-      element.style.position = 'relative';
+      // 最適なサイズに調整
+      element.style.width = '100%';
+      element.style.maxWidth = '450px'; // 適切な幅に設定
+      element.style.margin = '0';
       
-      // モバイル表示時に要素に余白を追加するため、少し待つ
-      await new Promise(resolve => setTimeout(resolve, 100));
+      // 少し待ってレンダリングが更新されるようにする
+      await new Promise(resolve => setTimeout(resolve, 50));
     }
 
     // Create canvas from the element
     const canvas = await html2canvas(element, {
       allowTaint: true,
       useCORS: true,
-      scale: window.innerWidth < 768 ? 1.0 : 2, // モバイルではスケールを下げて全体を確実に収める
+      scale: window.innerWidth < 768 ? 1.05 : 2, // バランスの良いスケール
       backgroundColor: "white", // 背景を白に設定
       logging: false,
       // 幅の制限を外し、要素全体をキャプチャ
       width: element.offsetWidth,
-      height: element.offsetHeight,
-      x: 0,
-      y: 0,
-      windowWidth: window.innerWidth < 768 ? element.offsetWidth + 20 : window.innerWidth, // 余白を追加
-      windowHeight: element.offsetHeight + 20, // 余白を追加
       imageTimeout: 0, // 画像のタイムアウトを無効にする
       onclone: (clonedDoc) => {
         // クローンされたドキュメント内の画像に特別なスタイルを適用
@@ -74,11 +63,9 @@ export const downloadAsImage = async (
         const profileCard = clonedDoc.getElementById('profileCard');
         if (profileCard && window.innerWidth < 768) {
           profileCard.style.width = '100%';
-          profileCard.style.maxWidth = '470px'; // モバイルではさらに小さく
-          profileCard.style.margin = '0 auto';
-          profileCard.style.transform = 'scale(0.95)'; // 縮小して確実に収まるようにする
-          profileCard.style.transformOrigin = 'center top';
-          profileCard.style.overflow = 'visible'; // クリッピングを避ける
+          profileCard.style.maxWidth = '450px'; // 適切なサイズに調整
+          profileCard.style.margin = '0';
+          profileCard.style.boxSizing = 'border-box';
         }
       }
     });
@@ -88,9 +75,6 @@ export const downloadAsImage = async (
       element.style.width = originalStyles.width;
       element.style.maxWidth = originalStyles.maxWidth;
       element.style.margin = originalStyles.margin;
-      element.style.transform = originalStyles.transform;
-      element.style.padding = originalStyles.padding;
-      element.style.position = originalStyles.position;
     }
 
     // Convert canvas to data URL
