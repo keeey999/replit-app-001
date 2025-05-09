@@ -120,7 +120,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
     switch (layoutStyle) {
       case "modern":
         return (
-          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-xl" style={{ minHeight: isMobile ? "480px" : "540px", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-xl" style={{ minHeight: isMobile ? "480px" : "540px", width: "100%", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
             {/* 背景の円形パターンが動くアニメーション効果 */}
             <div 
               {...modernHeaderStyle}
@@ -359,7 +359,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         
       case "compact":
         return (
-          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: isMobile ? "480px" : "540px", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: isMobile ? "480px" : "540px", width: "100%", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
             {/* サイドカラム付きレイアウト - モバイルでは縦並び */}
             <div className={isMobile ? "flex flex-col h-full" : "grid grid-cols-12 h-full"}>
               {/* サイドバー部分 */}
@@ -613,7 +613,7 @@ export default function ProfilePreview({ data, isDownloading, onDownload, onStyl
         
       default: // standard
         return (
-          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: isMobile ? "480px" : "540px", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
+          <div id="profileCard" className="border border-border rounded-xl overflow-hidden shadow-lg" style={{ minHeight: isMobile ? "480px" : "540px", width: "100%", maxWidth: isMobile ? "100%" : "600px", margin: "0 auto" }}>
             <div 
               className={isCustomColor ? "p-6 sm:p-8 pb-28 sm:pb-32 relative" : `bg-gradient-to-br ${gradientStyle} p-6 sm:p-8 pb-28 sm:pb-32 relative`}
               style={isCustomColor ? customGradientStyle : undefined}
